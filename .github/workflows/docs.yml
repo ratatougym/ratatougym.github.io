@@ -50,6 +50,19 @@ jobs:
         # Install any other dependencies needed for your docs
         pip install numpy matplotlib torch scipy scikit-learn faiss-cpu IPython
 
+    - name: Debug - Check rtgym structure
+      run: |
+        echo "=== Current directory ==="
+        pwd
+        ls -la
+        echo "=== rtgym directory ==="
+        ls -la rtgym/
+        echo "=== rtgym/rtgym directory ==="
+        ls -la rtgym/rtgym/ || echo "rtgym/rtgym/ not found"
+        echo "=== Python path test ==="
+        python -c "import sys; sys.path.insert(0, 'rtgym'); print('Path:', sys.path[:3])"
+        python -c "import sys; sys.path.insert(0, 'rtgym'); import rtgym; print('rtgym imported successfully')" || echo "Failed to import rtgym"
+
     - name: Build documentation
       run: |
         sphinx-build -b html -E . docs

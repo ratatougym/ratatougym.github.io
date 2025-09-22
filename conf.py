@@ -5,7 +5,13 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../rtgym'))
+# Handle both local development (../rtgym) and GitHub Actions (./rtgym)
+if os.path.exists(os.path.abspath('../rtgym')):
+    sys.path.insert(0, os.path.abspath('../rtgym'))
+elif os.path.exists(os.path.abspath('./rtgym')):
+    sys.path.insert(0, os.path.abspath('./rtgym'))
+else:
+    print("Warning: rtgym path not found")
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
