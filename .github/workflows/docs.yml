@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   docs:
     runs-on: ubuntu-latest
@@ -49,10 +54,17 @@ jobs:
       run: |
         sphinx-build -b html -E . docs
 
+    - name: Setup Pages
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: actions/configure-pages@v3
+
+    - name: Upload artifact
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./docs
+
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
-        force_orphan: true
+      id: deployment
+      uses: actions/deploy-pages@v2
