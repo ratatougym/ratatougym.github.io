@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="../../../" x-data="{activeSection: ''}">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#030711" />
+  
+  <title>rtgym.agent.agent | RatatouGym 1.0.0 documentation</title>
+  <meta property="og:title" content="rtgym.agent.agent | RatatouGym 1.0.0 documentation" />
+  <meta name="twitter:title" content="rtgym.agent.agent | RatatouGym 1.0.0 documentation" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8d216cef" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=f96196c2" />
+  <link rel="icon" href="../../../_static/cheese.ico" />
+  <link rel="search" title="Search" href="../../../search.html" />
+  <link rel="index" title="Index" href="../../../genindex.html" />
+</head>
+
+<body x-data="{ showSidebar: false, showScrollTop: false }"
+  class="min-h-screen font-sans antialiased bg-background text-foreground" :class="{ 'overflow-hidden': showSidebar }">
+  <div x-cloak x-show="showSidebar"
+    class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden"
+    @click.self="showSidebar = false"></div><div id="page" class="relative flex flex-col min-h-screen"><a href="#content"
+      class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border bg-background/90 backdrop-blur"><div class="container flex items-center h-14">
+    <div class="hidden mr-4 md:flex">
+      <a href="../../../index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+      </a></div><button
+      class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
+      type="button" @click="showSidebar = true">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
+        fill="currentColor">
+        <path
+          d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z" />
+      </svg>
+      <span class="sr-only">Toggle navigation menu</span>
+    </button>
+    <div class="flex items-center justify-between flex-1 gap-2 sm:gap-4 md:justify-end">
+      <div class="flex-1 w-full md:w-auto md:flex-none"><form id="searchbox"
+      action="../../../search.html"
+      method="get"
+      class="relative flex items-center group"
+      @keydown.k.window.meta="$refs.search.focus()">
+  <input x-ref="search"
+          name="q"
+          id="search-input"
+          type="search"
+          aria-label="Search the docs"
+          placeholder="Search ..."
+          class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" />
+  <kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+    <span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+      </div>
+      <nav class="flex items-center gap-1">
+        
+        <button
+          id="theme-toggle"
+          type="button"
+          title="Toggle dark/light mode"
+          class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9"
+          aria-label="Toggle dark/light mode">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <div class="flex-1"><div
+        class="container md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside id="left-sidebar"
+  class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full overflow-y-auto border-r border-border md:sticky"
+  :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }">
+
+    <a href="../../../index.html" class="justify-start text-sm md:!hidden bg-background"><span class="font-bold text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+    </a>
+
+    <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0">
+      <div class="overflow-y-auto h-full w-full relative pr-6">
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.html">rtgym package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.agent.html">rtgym.agent package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.arena.html">rtgym.arena package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.dataclass.html">rtgym.dataclass package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.utils.html">rtgym.utils package</a></li>
+</ul>
+
+      </div>
+    </div>
+    <button type="button" @click="showSidebar = false"
+      class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" fill="currentColor"
+        stroke="none" class="h-4 w-4">
+        <path
+          d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z" />
+      </svg>
+    </button>
+  </aside>
+          <main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_250px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs"
+     class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+  <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground"
+     href="../../../index.html">
+    <span class="hidden md:inline">RatatouGym 1.0.0 documentation</span>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         height="18"
+         width="18"
+         viewBox="0 96 960 960"
+         aria-label="Home"
+         fill="currentColor"
+         stroke="none"
+         class="md:hidden">
+      <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z" />
+    </svg>
+  </a>
+  
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap"
+       href="../../index.html">Module code</a>
+    
+<div class="mr-1">/</div><span aria-current="page"
+        class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rtgym.agent.agent</span>
+</nav>
+
+    <div id="content" role="main">
+      <h1>Source code for rtgym.agent.agent</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">rtgym.agent.behavior</span> <span class="kn">import</span> <span class="n">Behavior</span>
+<span class="kn">from</span> <span class="nn">rtgym.agent.sensory</span> <span class="kn">import</span> <span class="n">Sensory</span>
+<span class="kn">from</span> <span class="nn">rtgym.dataclass</span> <span class="kn">import</span> <span class="n">AgentState</span><span class="p">,</span> <span class="n">Trajectory</span><span class="p">,</span> <span class="n">RawAgentState</span><span class="p">,</span> <span class="n">RawTrajectory</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+
+<div class="viewcode-block" id="Agent">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent">[docs]</a>
+<span class="k">class</span> <span class="nc">Agent</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The class object of the Agent. An agent represents the subject that navigates </span>
+<span class="sd">    or traverses the arena, either randomly or under control. This implementation </span>
+<span class="sd">    manages two central aspects: how the agent generates trajectories through the </span>
+<span class="sd">    environment, and how different sensory systems or spatial navigation cell types </span>
+<span class="sd">    might respond along those trajectories.</span>
+
+<span class="sd">    The Agent can be thought of as a virtual animal whose movement and sensory </span>
+<span class="sd">    inputs can be precisely controlled and observed. In this setting, theoretical </span>
+<span class="sd">    models of spatially tuned cells—such as place cells, grid cells, or head </span>
+<span class="sd">    direction cells—can be applied to predict how each of them would respond given </span>
+<span class="sd">    the positions visited along a trajectory.</span>
+
+<span class="sd">    The Agent acts as a unifying interface that combines behavioral rules with </span>
+<span class="sd">    sensory transformations, enabling reproducible experiments where navigation </span>
+<span class="sd">    and perception are directly linked.</span>
+
+<span class="sd">    The Agent is coupled to a gym environment that defines the arena, spatial and </span>
+<span class="sd">    temporal resolution, and the overall rules of the task. Through this interface, </span>
+<span class="sd">    the Agent can be spawned at specific or random locations, controlled step by </span>
+<span class="sd">    step, or allowed to move autonomously, while its sensory responses can be </span>
+<span class="sd">    queried from individual states or full trajectories.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        gym (RatatouGym): The parent gym environment.</span>
+<span class="sd">        behavior_profile (dict): Current behavior configuration.</span>
+<span class="sd">        sensory_profile (dict): Current sensory configuration.</span>
+<span class="sd">        sensory (Sensory): Sensory system manager.</span>
+<span class="sd">        behavior (Behavior): Behavior system manager.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gym</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gym</span> <span class="o">=</span> <span class="n">gym</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">behavior_profile</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensory_profile</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensory</span> <span class="o">=</span> <span class="n">Sensory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gym</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">behavior</span> <span class="o">=</span> <span class="n">Behavior</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gym</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">RawAgentState</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">temporal_resolution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get temporal resolution from gym.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: Temporal resolution in milliseconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gym</span><span class="o">.</span><span class="n">temporal_resolution</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">spatial_resolution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get spatial resolution from gym.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: Spatial resolution in units per pixel.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gym</span><span class="o">.</span><span class="n">spatial_resolution</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sensories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all sensory modalities.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary of sensory modalities keyed by name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensory</span><span class="o">.</span><span class="n">sensories</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">arena</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get arena from gym.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Arena: The arena environment.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gym</span><span class="o">.</span><span class="n">arena</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">controllable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get controllable behavior system.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            ControllableBehavior: Controllable behavior manager.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior</span><span class="o">.</span><span class="n">controllable</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">autonomous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get autonomous behavior system.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            AutonomousBehavior: Autonomous behavior manager.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior</span><span class="o">.</span><span class="n">autonomous</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current agent state.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            RawAgentState: Current raw agent state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span>
+
+    <span class="k">def</span> <span class="nf">_on_arena_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle arena change events.</span>
+<span class="sd">        </span>
+<span class="sd">        Updates behavior and sensory systems when the arena changes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arena</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">behavior</span><span class="o">.</span><span class="n">_on_arena_change</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sensory</span><span class="o">.</span><span class="n">_on_arena_change</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init_behavior_from_profile</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init_sensory_from_profile</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Agent.set_behavior">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.set_behavior">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_behavior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">behavior_profile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set behavior configuration.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            behavior_profile (dict): Behavior configuration parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">behavior_profile</span> <span class="o">=</span> <span class="n">behavior_profile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_behavior_from_profile</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_init_behavior_from_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize behavior from behavior profile.</span>
+<span class="sd">        </span>
+<span class="sd">        Sets up the behavior system using the current behavior profile</span>
+<span class="sd">        if both profile and arena are available.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior_profile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">arena</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">behavior</span><span class="o">.</span><span class="n">init_from_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">behavior_profile</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Agent.set_sensory">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.set_sensory">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_sensory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensory_profile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set sensory configuration.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            sensory_profile (dict): Sensory configuration parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensory_profile</span> <span class="o">=</span> <span class="n">sensory_profile</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_sensory_from_profile</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Agent.add_sensory">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.add_sensory">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_sensory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensory_profile</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add sensory modalities to existing configuration.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            sensory_profile (dict): Additional sensory configuration parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensory_profile</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sensory_profile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensory</span><span class="o">.</span><span class="n">add_sensory</span><span class="p">(</span><span class="n">sensory_profile</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Agent.set_sensory_manually">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.set_sensory_manually">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_sensory_manually</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sens_type</span><span class="p">,</span> <span class="n">sens</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">warnings</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;DeprecationWarning: The method &#39;set_sensory_manually&#39; is deprecated. &quot;</span>
+                      <span class="s2">&quot;Potential implementation issues might cause unintended behavior. &quot;</span>
+                      <span class="s2">&quot;It is recommended to implement a separate sensory class instead.&quot;</span><span class="p">)</span></div>
+
+        <span class="c1"># if self.sensory is not None:</span>
+        <span class="c1">#     print(&#39;Warning: sensory is reset&#39;)</span>
+        <span class="c1"># self.sensory.set_sensory_manually(sens_type, sens)</span>
+        <span class="c1"># self.sensory = sensory</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sensories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all sensory modalities.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary of sensory modalities keyed by name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensory</span><span class="o">.</span><span class="n">sensories</span>
+
+    <span class="k">def</span> <span class="nf">_init_sensory_from_profile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize sensory from sensory profile</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensory_profile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">arena</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sensory</span><span class="o">.</span><span class="n">init_from_profile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sensory_profile</span><span class="p">)</span>
+
+    <span class="c1"># ================================</span>
+    <span class="c1"># Behavior</span>
+    <span class="c1"># ================================</span>
+<div class="viewcode-block" id="Agent.random_traverse">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.random_traverse">[docs]</a>
+    <span class="k">def</span> <span class="nf">random_traverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">init_pos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">init_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pause_prob</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">traj</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">behavior</span><span class="o">.</span><span class="n">generate_trajectory</span><span class="p">(</span><span class="n">duration</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">init_pos</span><span class="p">,</span> <span class="n">init_state</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pause_prob</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pause_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">pause_prob</span>
+            <span class="n">traj</span><span class="o">.</span><span class="n">disp</span><span class="p">[</span><span class="n">pause_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">disp</span><span class="p">[</span><span class="n">pause_mask</span><span class="p">])</span>
+            <span class="n">traj</span><span class="o">.</span><span class="n">coord</span><span class="p">[</span><span class="n">pause_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">traj</span><span class="o">.</span><span class="n">coord</span><span class="p">[</span><span class="n">pause_mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">][:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+            <span class="n">traj</span><span class="o">.</span><span class="n">hd</span><span class="p">[</span><span class="n">pause_mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">hd</span><span class="p">[</span><span class="n">pause_mask</span><span class="p">])</span>
+            <span class="c1"># print(&quot;Continuing trajectory maybe deprecated when pause_prob &gt; 0&quot;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="k">return</span> <span class="n">traj</span></div>
+
+
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displacement</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllable</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span> <span class="n">displacement</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Agent.get_response">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.get_response">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_response</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">agent_data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AgentState</span><span class="p">,</span> <span class="n">Trajectory</span><span class="p">],</span>
+            <span class="n">return_format</span><span class="o">=</span><span class="s1">&#39;array&#39;</span><span class="p">,</span> 
+            <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+            <span class="n">str_filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+            <span class="n">type_filter</span><span class="o">=</span><span class="kc">None</span>
+        <span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">agent_data</span><span class="p">,</span> <span class="n">RawAgentState</span><span class="p">):</span>
+            <span class="n">agent_data</span> <span class="o">=</span> <span class="n">agent_data</span><span class="o">.</span><span class="n">to_agent_state</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">agent_data</span><span class="p">,</span> <span class="n">RawTrajectory</span><span class="p">):</span>
+            <span class="n">agent_data</span> <span class="o">=</span> <span class="n">agent_data</span><span class="o">.</span><span class="n">to_trajectory</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensory</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">agent_data</span><span class="p">,</span> <span class="n">return_format</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">str_filter</span><span class="p">,</span> <span class="n">type_filter</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Agent.spawn">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.spawn">[docs]</a>
+    <span class="k">def</span> <span class="nf">spawn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_pos</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">init_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Spawn the controllable agent at the given position and state.</span>
+<span class="sd">        </span>
+<span class="sd">        Resets the controllable behavior and initializes the agent at a specific</span>
+<span class="sd">        location and state for manual control.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            init_pos (np.ndarray, optional): Initial position of the agent.</span>
+<span class="sd">            init_state (AgentState or RawAgentState, optional): Initial state of the agent. </span>
+<span class="sd">                If both init_pos and init_state are provided, init_state will be used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controllable</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">init_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">init_state</span><span class="p">,</span> <span class="n">RawAgentState</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">init_state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">init_state</span><span class="p">,</span> <span class="n">AgentState</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">coord</span> <span class="o">=</span> <span class="n">init_state</span><span class="o">.</span><span class="n">coord</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">disp</span> <span class="o">=</span> <span class="n">init_state</span><span class="o">.</span><span class="n">disp</span>
+        <span class="k">elif</span> <span class="n">init_pos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">coord</span> <span class="o">=</span> <span class="n">init_pos</span></div>
+
+
+<div class="viewcode-block" id="Agent.random_spawn">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.random_spawn">[docs]</a>
+    <span class="k">def</span> <span class="nf">random_spawn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spawn the controller at a random position in the arena.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">init_pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">arena</span><span class="o">.</span><span class="n">random_position</span><span class="p">(</span><span class="n">batch_size</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Agent.step">
+<a class="viewcode-back" href="../../../rtgym.agent.html#rtgym.agent.agent.Agent.step">[docs]</a>
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">displacement</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllable</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span> <span class="n">displacement</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+    </div></div>
+          </main>
+        </div>
+      </div><footer class="py-6 border-t border-border md:py-0">
+    <div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+      <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+        <p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2025, Zhaoze Wang @ Balasubramanian Lab&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+      Built with <a class="font-medium underline underline-offset-4"
+    href="https://www.sphinx-doc.org"
+    rel="noreferrer"> Sphinx 8.2.3 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  🧀 <strong>RatatouGym</strong> - Neural Simulation Gymnasium for Spatial Navigation Research
+</p>
+</div>
+</div>
+</footer>
+    </div>
+    
+    <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/theme-toggle.js?v=9ab353ff"></script>
+    <script src="../../../_static/external-links.js?v=fbcf3ad4"></script>
+    
+</body>
+
+</html>

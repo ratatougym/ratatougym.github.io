@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="../../../" x-data="{activeSection: ''}">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#030711" />
+  
+  <title>rtgym.utils.data_processing | RatatouGym 1.0.0 documentation</title>
+  <meta property="og:title" content="rtgym.utils.data_processing | RatatouGym 1.0.0 documentation" />
+  <meta name="twitter:title" content="rtgym.utils.data_processing | RatatouGym 1.0.0 documentation" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8d216cef" />
+  <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=f96196c2" />
+  <link rel="icon" href="../../../_static/cheese.ico" />
+  <link rel="search" title="Search" href="../../../search.html" />
+  <link rel="index" title="Index" href="../../../genindex.html" />
+</head>
+
+<body x-data="{ showSidebar: false, showScrollTop: false }"
+  class="min-h-screen font-sans antialiased bg-background text-foreground" :class="{ 'overflow-hidden': showSidebar }">
+  <div x-cloak x-show="showSidebar"
+    class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden"
+    @click.self="showSidebar = false"></div><div id="page" class="relative flex flex-col min-h-screen"><a href="#content"
+      class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border bg-background/90 backdrop-blur"><div class="container flex items-center h-14">
+    <div class="hidden mr-4 md:flex">
+      <a href="../../../index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+      </a></div><button
+      class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
+      type="button" @click="showSidebar = true">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
+        fill="currentColor">
+        <path
+          d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z" />
+      </svg>
+      <span class="sr-only">Toggle navigation menu</span>
+    </button>
+    <div class="flex items-center justify-between flex-1 gap-2 sm:gap-4 md:justify-end">
+      <div class="flex-1 w-full md:w-auto md:flex-none"><form id="searchbox"
+      action="../../../search.html"
+      method="get"
+      class="relative flex items-center group"
+      @keydown.k.window.meta="$refs.search.focus()">
+  <input x-ref="search"
+          name="q"
+          id="search-input"
+          type="search"
+          aria-label="Search the docs"
+          placeholder="Search ..."
+          class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" />
+  <kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+    <span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+      </div>
+      <nav class="flex items-center gap-1">
+        
+        <button
+          id="theme-toggle"
+          type="button"
+          title="Toggle dark/light mode"
+          class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9"
+          aria-label="Toggle dark/light mode">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <div class="flex-1"><div
+        class="container md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside id="left-sidebar"
+  class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full overflow-y-auto border-r border-border md:sticky"
+  :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }">
+
+    <a href="../../../index.html" class="justify-start text-sm md:!hidden bg-background"><span class="font-bold text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+    </a>
+
+    <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0">
+      <div class="overflow-y-auto h-full w-full relative pr-6">
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.html">rtgym package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.agent.html">rtgym.agent package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.arena.html">rtgym.arena package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.dataclass.html">rtgym.dataclass package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rtgym.utils.html">rtgym.utils package</a></li>
+</ul>
+
+      </div>
+    </div>
+    <button type="button" @click="showSidebar = false"
+      class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" fill="currentColor"
+        stroke="none" class="h-4 w-4">
+        <path
+          d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z" />
+      </svg>
+    </button>
+  </aside>
+          <main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_250px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs"
+     class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+  <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground"
+     href="../../../index.html">
+    <span class="hidden md:inline">RatatouGym 1.0.0 documentation</span>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         height="18"
+         width="18"
+         viewBox="0 96 960 960"
+         aria-label="Home"
+         fill="currentColor"
+         stroke="none"
+         class="md:hidden">
+      <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z" />
+    </svg>
+  </a>
+  
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap"
+       href="../../index.html">Module code</a>
+    
+<div class="mr-1">/</div><span aria-current="page"
+        class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rtgym.utils.data_processing</span>
+</nav>
+
+    <div id="content" role="main">
+      <h1>Source code for rtgym.utils.data_processing</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">rtgym.dataclass</span> <span class="kn">import</span> <span class="n">Trajectory</span>
+
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s1">&#39;invalid value encountered in divide&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="combine_trajectories">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.combine_trajectories">[docs]</a>
+<span class="k">def</span> <span class="nf">combine_trajectories</span><span class="p">(</span><span class="n">traj_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merge a list of Trajectory objects into a single Trajectory object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_trajs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">traj_list</span><span class="p">)</span>
+    <span class="n">coords_float</span><span class="p">,</span> <span class="n">head_directions</span><span class="p">,</span> <span class="n">displacements</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trajs</span><span class="p">):</span>
+        <span class="n">traj</span> <span class="o">=</span> <span class="n">traj_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">coords_float</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">float_coords</span><span class="p">)</span>
+        <span class="n">head_directions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">hds</span><span class="p">)</span>
+        <span class="n">displacements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">traj</span><span class="o">.</span><span class="n">disps</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Trajectory</span><span class="p">(</span>
+        <span class="n">coords_float</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">coords_float</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">head_directions</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">head_directions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">displacements</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">displacements</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="states_to_ratemap">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.states_to_ratemap">[docs]</a>
+<span class="k">def</span> <span class="nf">states_to_ratemap</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">arena_map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes the states and coords and returns the firing fields using PyTorch.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        states: shape=(n_batches, n_timesteps, n_cells) or (n_timesteps, n_batches, n_cells)</span>
+<span class="sd">        coords: shape=(n_batches, n_timesteps, 2) or (n_timesteps, n_batches, 2)</span>
+<span class="sd">        arena_map: shape=(n_x, n_y), 0 for free space, 1 for walls (torch.Tensor)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        field: shape=(n_cells, n_x, n_y) (torch.Tensor)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Convert to PyTorch tensors if numpy arrays</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+    
+    <span class="c1"># Ensure tensors are in continuous memory layout</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">states</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">():</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">coords</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">():</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
+    <span class="c1"># Ensure tensors have consistent data types</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="o">.</span><span class="n">long</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">states</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="c1"># Reshape states and coords</span>
+    <span class="n">n_batches</span><span class="p">,</span> <span class="n">n_timesteps</span><span class="p">,</span> <span class="n">n_cells</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># (n_batches * n_timesteps, 2)</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_cells</span><span class="p">)</span>  <span class="c1"># (n_batches * n_timesteps, n_cells)</span>
+
+    <span class="c1"># Get gym background dimensions</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="n">arena_map</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="c1"># Initialize firing fields and visit counts</span>
+    <span class="n">firing_fields</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_cells</span><span class="p">,</span> <span class="o">*</span><span class="n">dims</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">states</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">visit_counts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">states</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="c1"># Flatten coords for linear indexing</span>
+    <span class="n">flat_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Linear indices for coords</span>
+    <span class="n">flat_fields</span> <span class="o">=</span> <span class="n">firing_fields</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">n_cells</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">flat_counts</span> <span class="o">=</span> <span class="n">visit_counts</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Accumulate firing fields and visit counts</span>
+    <span class="n">flat_fields</span><span class="o">.</span><span class="n">index_add_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">flat_coords</span><span class="p">,</span> <span class="n">states</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">flat_counts</span><span class="o">.</span><span class="n">index_add_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">flat_coords</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">flat_coords</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+    <span class="c1"># Normalize firing fields by visit counts</span>
+    <span class="n">firing_fields</span> <span class="o">/=</span> <span class="n">visit_counts</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Avoid division by zero</span>
+    
+    <span class="c1"># Set unvisited areas to NaN</span>
+    <span class="n">firing_fields</span><span class="p">[:,</span> <span class="n">visit_counts</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">firing_fields</span></div>
+
+
+
+<div class="viewcode-block" id="get_gym_dimensions">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.get_gym_dimensions">[docs]</a>
+<span class="k">def</span> <span class="nf">get_gym_dimensions</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">arena_map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the dimensions of the gym background</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">arena_map</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Infer dimensions from coords</span>
+        <span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">-</span> <span class="n">y_min</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">arena_map</span><span class="o">.</span><span class="n">shape</span></div>
+
+
+
+<div class="viewcode-block" id="states2ff">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.states2ff">[docs]</a>
+<span class="k">def</span> <span class="nf">states2ff</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">arena_map</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes the states and coords and returns the firing fields.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        states: shape=(n_batches, n_timesteps, n_cells) or (n_timesteps, n_batches, n_cells)</span>
+<span class="sd">        coords: shape=(n_batches, n_timesteps, 2) or (n_timesteps, n_batches, 2)</span>
+<span class="sd">        gym_bg: shape=(n_x, n_y), 0 for free space, 1 for walls</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        field: shape=(n_cells, n_x, n_y)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># reshape coords and states</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">restrain2ff</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">arena_map</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="restrain2ff">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.restrain2ff">[docs]</a>
+<span class="k">def</span> <span class="nf">restrain2ff</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">arena_map</span><span class="p">):</span>
+    <span class="n">n_cells</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">dimensions</span> <span class="o">=</span> <span class="n">arena_map</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dimensions</span><span class="p">)</span>
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n_cells</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">field</span><span class="p">[:,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">+=</span> <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">counts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">field</span> <span class="o">/</span> <span class="n">counts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n_cells</span><span class="p">,</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dimensions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dimensions</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">field</span><span class="p">[:,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">+=</span> <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">counts</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cells</span><span class="p">):</span>
+            <span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">counts</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">counts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">field</span></div>
+
+
+
+<div class="viewcode-block" id="RatemapAggregator">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.RatemapAggregator">[docs]</a>
+<span class="k">class</span> <span class="nc">RatemapAggregator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arena_map</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class to accumulate partial data for rate-map computation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arena_map (torch.Tensor or np.ndarray):</span>
+<span class="sd">                Map of shape (n_x, n_y), 0 for free space, 1 for walls, </span>
+<span class="sd">                used for figuring out dimensions and for masking.</span>
+<span class="sd">            device (str or torch.device, optional):</span>
+<span class="sd">                The device on which to store the data (CPU or GPU). </span>
+<span class="sd">                If None, uses arena_map device if it&#39;s a torch.Tensor, </span>
+<span class="sd">                otherwise &quot;cpu&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If arena_map is numpy array, convert to torch</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arena_map</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">arena_map</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">arena_map</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">arena_map</span> <span class="o">=</span> <span class="n">arena_map</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dims</span> <span class="o">=</span> <span class="n">arena_map</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># (n_x, n_y)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Infer device</span>
+        <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">arena_map</span><span class="o">.</span><span class="n">device</span> <span class="k">if</span> <span class="n">arena_map</span><span class="o">.</span><span class="n">is_cuda</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+    
+<div class="viewcode-block" id="RatemapAggregator.init_counts">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.RatemapAggregator.init_counts">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">partial_sums</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span>
+        <span class="c1"># shape: (n_x, n_y)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visit_counts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RatemapAggregator.update">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.RatemapAggregator.update">[docs]</a>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">coords</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Accumulate partial sums and visit counts from new data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            states (torch.Tensor or np.ndarray):</span>
+<span class="sd">                Shape=(n_batches, n_timesteps, n_cells) or (n_timesteps, n_batches, n_cells).</span>
+<span class="sd">            coords (torch.Tensor or np.ndarray):</span>
+<span class="sd">                Shape=(n_batches, n_timesteps, 2) or (n_timesteps, n_batches, 2).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_counts</span><span class="p">()</span>
+
+        <span class="c1"># Convert to torch if numpy</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">states</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">coords</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+
+        <span class="c1"># Move to the same device</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># Ensure correct dtype</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="o">.</span><span class="n">long</span><span class="p">()</span>  <span class="c1"># round and convert to long</span>
+
+        <span class="c1"># Standardize shapes</span>
+        <span class="k">assert</span> <span class="n">states</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;states must have 3 dims: (n_batches, n_timesteps, n_cells)&quot;</span>
+        <span class="k">assert</span> <span class="n">coords</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;coords must have 3 dims: (n_batches, n_timesteps, 2)&quot;</span>
+
+        <span class="c1"># Flatten</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>     <span class="c1"># (n_batches * n_timesteps, 2)</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span><span class="p">)</span>  <span class="c1"># (n_batches * n_timesteps, n_cells)</span>
+
+        <span class="c1"># Flatten partial sums and visit_counts for fast index_add</span>
+        <span class="n">flat_sums</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_sums</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># shape: (n_cells, n_x*n_y)</span>
+        <span class="n">flat_counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_counts</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>              <span class="c1"># shape: (n_x*n_y)</span>
+
+        <span class="c1"># Convert (row, col) coords into linear indices</span>
+        <span class="n">dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span>
+        <span class="n">flat_coords</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># shape: (n_samples,)</span>
+
+        <span class="c1"># Accumulate partial sums</span>
+        <span class="c1"># states.T shape: (n_cells, n_samples)</span>
+        <span class="c1"># so we add states.T to the flat_sums at the flattened coordinate indices</span>
+        <span class="n">flat_sums</span><span class="o">.</span><span class="n">index_add_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">flat_coords</span><span class="p">,</span> <span class="n">states</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="c1"># Accumulate visit counts</span>
+        <span class="n">flat_counts</span><span class="o">.</span><span class="n">index_add_</span><span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span> 
+            <span class="n">flat_coords</span><span class="p">,</span> 
+            <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">flat_coords</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RatemapAggregator.get_ratemap">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.RatemapAggregator.get_ratemap">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_ratemap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the final normalized firing fields (n_cells, n_x, n_y).</span>
+<span class="sd">        Unvisited points (visit_count=0) will be NaN.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Avoid division by zero by clamping</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_counts</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># shape: (n_x, n_y)</span>
+
+        <span class="c1"># temp_counts = self.visit_counts[5:-5, 5:-5]</span>
+        <span class="c1"># print(temp_counts.min(), temp_counts.max(), temp_counts.mean(), temp_counts.std())</span>
+        
+        <span class="c1"># Broadcasting: partial_sums shape (n_cells, n_x, n_y) / (n_x, n_y)</span>
+        <span class="n">ratemap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_sums</span> <span class="o">/</span> <span class="n">denom</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Set unvisited areas to NaN</span>
+        <span class="n">mask_unvisited</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">visit_counts</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">ratemap</span><span class="p">[:,</span> <span class="n">mask_unvisited</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ratemap</span></div>
+
+
+<div class="viewcode-block" id="RatemapAggregator.reset">
+<a class="viewcode-back" href="../../../rtgym.utils.html#rtgym.utils.data_processing.RatemapAggregator.reset">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reset the aggregator (clears all partial sums and counts).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">partial_sums</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visit_counts</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+    </div></div>
+          </main>
+        </div>
+      </div><footer class="py-6 border-t border-border md:py-0">
+    <div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+      <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+        <p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2025, Zhaoze Wang @ Balasubramanian Lab&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+      Built with <a class="font-medium underline underline-offset-4"
+    href="https://www.sphinx-doc.org"
+    rel="noreferrer"> Sphinx 8.2.3 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  🧀 <strong>RatatouGym</strong> - Neural Simulation Gymnasium for Spatial Navigation Research
+</p>
+</div>
+</div>
+</footer>
+    </div>
+    
+    <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/theme-toggle.js?v=9ab353ff"></script>
+    <script src="../../../_static/external-links.js?v=fbcf3ad4"></script>
+    
+</body>
+
+</html>

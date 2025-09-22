@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="../../../../../" x-data="{activeSection: ''}">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#030711" />
+  
+  <title>rtgym.agent.sensory.movement_modulated.mm_base | RatatouGym 1.0.0 documentation</title>
+  <meta property="og:title" content="rtgym.agent.sensory.movement_modulated.mm_base | RatatouGym 1.0.0 documentation" />
+  <meta name="twitter:title" content="rtgym.agent.sensory.movement_modulated.mm_base | RatatouGym 1.0.0 documentation" />
+  <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=8d216cef" />
+  <link rel="stylesheet" type="text/css" href="../../../../../_static/theme.css?v=f96196c2" />
+  <link rel="icon" href="../../../../../_static/cheese.ico" />
+  <link rel="search" title="Search" href="../../../../../search.html" />
+  <link rel="index" title="Index" href="../../../../../genindex.html" />
+</head>
+
+<body x-data="{ showSidebar: false, showScrollTop: false }"
+  class="min-h-screen font-sans antialiased bg-background text-foreground" :class="{ 'overflow-hidden': showSidebar }">
+  <div x-cloak x-show="showSidebar"
+    class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden"
+    @click.self="showSidebar = false"></div><div id="page" class="relative flex flex-col min-h-screen"><a href="#content"
+      class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border bg-background/90 backdrop-blur"><div class="container flex items-center h-14">
+    <div class="hidden mr-4 md:flex">
+      <a href="../../../../../index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+      </a></div><button
+      class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
+      type="button" @click="showSidebar = true">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
+        fill="currentColor">
+        <path
+          d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z" />
+      </svg>
+      <span class="sr-only">Toggle navigation menu</span>
+    </button>
+    <div class="flex items-center justify-between flex-1 gap-2 sm:gap-4 md:justify-end">
+      <div class="flex-1 w-full md:w-auto md:flex-none"><form id="searchbox"
+      action="../../../../../search.html"
+      method="get"
+      class="relative flex items-center group"
+      @keydown.k.window.meta="$refs.search.focus()">
+  <input x-ref="search"
+          name="q"
+          id="search-input"
+          type="search"
+          aria-label="Search the docs"
+          placeholder="Search ..."
+          class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" />
+  <kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+    <span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+      </div>
+      <nav class="flex items-center gap-1">
+        
+        <button
+          id="theme-toggle"
+          type="button"
+          title="Toggle dark/light mode"
+          class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9"
+          aria-label="Toggle dark/light mode">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <div class="flex-1"><div
+        class="container md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside id="left-sidebar"
+  class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full overflow-y-auto border-r border-border md:sticky"
+  :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }">
+
+    <a href="../../../../../index.html" class="justify-start text-sm md:!hidden bg-background"><span class="font-bold text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+    </a>
+
+    <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0">
+      <div class="overflow-y-auto h-full w-full relative pr-6">
+<h3><a href="../../../../../index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../getting_started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../rtgym.html">rtgym package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../rtgym.agent.html">rtgym.agent package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../rtgym.arena.html">rtgym.arena package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../rtgym.dataclass.html">rtgym.dataclass package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../rtgym.utils.html">rtgym.utils package</a></li>
+</ul>
+
+      </div>
+    </div>
+    <button type="button" @click="showSidebar = false"
+      class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" fill="currentColor"
+        stroke="none" class="h-4 w-4">
+        <path
+          d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z" />
+      </svg>
+    </button>
+  </aside>
+          <main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_250px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs"
+     class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+  <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground"
+     href="../../../../../index.html">
+    <span class="hidden md:inline">RatatouGym 1.0.0 documentation</span>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         height="18"
+         width="18"
+         viewBox="0 96 960 960"
+         aria-label="Home"
+         fill="currentColor"
+         stroke="none"
+         class="md:hidden">
+      <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z" />
+    </svg>
+  </a>
+  
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap"
+       href="../../../../index.html">Module code</a>
+    
+<div class="mr-1">/</div><span aria-current="page"
+        class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rtgym.agent.sensory.movement_modulated.mm_base</span>
+</nav>
+
+    <div id="content" role="main">
+      <h1>Source code for rtgym.agent.sensory.movement_modulated.mm_base</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">convolve1d</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">default_rng</span>
+
+<span class="kn">from</span> <span class="nn">rtgym.utils</span> <span class="kn">import</span> <span class="n">print_dict</span>
+<span class="kn">from</span> <span class="nn">rtgym.utils.common</span> <span class="kn">import</span> <span class="n">hash_seed</span>
+
+
+<div class="viewcode-block" id="MMBase">
+<a class="viewcode-back" href="../../../../../rtgym.agent.sensory.movement_modulated.html#rtgym.agent.sensory.movement_modulated.mm_base.MMBase">[docs]</a>
+<span class="k">class</span> <span class="nc">MMBase</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for movement modulated sensory cells.</span>
+<span class="sd">    </span>
+<span class="sd">    Provides common functionality for sensory modalities that respond to</span>
+<span class="sd">    movement parameters such as speed, direction, and acceleration.</span>
+<span class="sd">    These cells are temporally modulated based on agent movement.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        arena (Arena): Arena environment object.</span>
+<span class="sd">        n_cells (int): Number of cells in this sensory modality.</span>
+<span class="sd">        t_res (float): Temporal resolution in milliseconds.</span>
+<span class="sd">        sensory_key (str): Unique identifier for this sensory type.</span>
+<span class="sd">        seed (int, optional): Random seed for reproducible cell generation.</span>
+<span class="sd">        **kwargs: Additional keyword arguments including:</span>
+<span class="sd">            magnitude (float): Base magnitude for cell responses.</span>
+<span class="sd">            msigma (float): Standard deviation for magnitude variation.</span>
+<span class="sd">            </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        arena (Arena): Arena environment.</span>
+<span class="sd">        t_res (float): Temporal resolution.</span>
+<span class="sd">        sensory_key (str): Unique sensory identifier.</span>
+<span class="sd">        n_cells (int): Number of sensory cells.</span>
+<span class="sd">        magnitude (np.ndarray): Magnitude values for each cell.</span>
+<span class="sd">        msigma (float): Magnitude standard deviation.</span>
+<span class="sd">        rng (np.random.Generator): Random number generator.</span>
+<span class="sd">        </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        AssertionError: If instantiated directly (abstract class) or n_cells &lt;= 0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">sens_type</span> <span class="o">=</span> <span class="s1">&#39;mm_base&#39;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arena</span><span class="p">,</span> <span class="n">n_cells</span><span class="p">,</span> <span class="n">t_res</span><span class="p">,</span> <span class="n">sensory_key</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arena</span> <span class="o">=</span> <span class="n">arena</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t_res</span> <span class="o">=</span> <span class="n">t_res</span>  <span class="c1"># temporal resolution</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensory_key</span> <span class="o">=</span> <span class="n">sensory_key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span> <span class="o">=</span> <span class="n">n_cells</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;magnitude&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msigma</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;msigma&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Initialize random number generator</span>
+        <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">seed</span> <span class="o">=</span> <span class="n">hash_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">sensory_key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">msigma</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># make the magnitude to be a vector of length n_cells</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">msigma</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span><span class="p">),</span> <span class="n">a_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a_max</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span><span class="p">)</span>
+
+        <span class="c1"># check if the class is the base class</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="n">MMBase</span><span class="p">,</span> <span class="s2">&quot;MMBase is an abstract class&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;n_cells &lt;= 0&quot;</span>
+
+
+    <span class="k">def</span> <span class="nf">_smooth_res</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Smooth input with a causal Gaussian-like kernel.</span>
+<span class="sd">        </span>
+<span class="sd">        Applies temporal smoothing to movement modulated responses using</span>
+<span class="sd">        a one-sided Gaussian kernel for causal filtering.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            res (np.ndarray): Input responses of shape (n_batch, n_time, n_cells).</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: Smoothed responses of the same shape as input.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma_ts</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">return_res</span> <span class="o">=</span> <span class="n">res</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">sigs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_ts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ssigma_ts</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">a_min</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">,</span> <span class="n">a_max</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">return_res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+            
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="c1"># Constructing a one-sided Gaussian-like kernel</span>
+                <span class="n">half_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">sigs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># To approximate a Gaussian</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">half_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span> <span class="o">/</span> <span class="n">kernel</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># Normalize to make it a probability distribution</span>
+
+                <span class="c1"># Convolve with the kernel along the time dimension with &#39;valid&#39; padding</span>
+                <span class="n">filtered</span> <span class="o">=</span> <span class="n">convolve1d</span><span class="p">(</span><span class="n">res</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">weights</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+                <span class="n">return_res</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">filtered</span>  <span class="c1"># The last time step is 0.</span>
+                <span class="n">return_res</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>  <span class="c1"># Pad the last time step with the last value</span>
+            
+        <span class="c1"># Scale the responses if magnitude is not None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">return_res</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span>
+        
+        <span class="k">return</span> <span class="n">return_res</span>
+
+    <span class="k">def</span> <span class="nf">_t_to_ts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert time in seconds to timesteps.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            t (float): Time value in seconds.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Corresponding timestep.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mf">1e3</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">t_res</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_duplicate_res</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">divisor</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Duplicate input array to match the number of cells.</span>
+<span class="sd">        </span>
+<span class="sd">        Tiles the input array along the last dimension to create responses</span>
+<span class="sd">        for all cells in this sensory modality.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            res (np.ndarray): Input array of shape (n_batch, n_time, n_features).</span>
+<span class="sd">            divisor (int): Divisor for n_cells (default 1, use 2 for displacement/acceleration).</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: Duplicated array of shape (n_batch, n_time, n_cells//divisor).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span><span class="o">//</span><span class="n">divisor</span><span class="p">))</span>
+
+<div class="viewcode-block" id="MMBase.vis">
+<a class="viewcode-back" href="../../../../../rtgym.agent.sensory.movement_modulated.html#rtgym.agent.sensory.movement_modulated.mm_base.MMBase.vis">[docs]</a>
+    <span class="k">def</span> <span class="nf">vis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">traj</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Visualize the movement modulated cells.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            traj (Trajectory): Trajectory data for visualization.</span>
+<span class="sd">            N (int): Number of cells to visualize.</span>
+<span class="sd">            *args: Additional positional arguments.</span>
+<span class="sd">            **kwargs: Additional keyword arguments.</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Matplotlib figure and axis objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">responses</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_responses</span><span class="p">(</span><span class="n">traj</span><span class="p">)</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">responses</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">N</span><span class="p">])</span> <span class="c1"># Last dimension will be 0.</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Response&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="MMBase.get_specs">
+<a class="viewcode-back" href="../../../../../rtgym.agent.sensory.movement_modulated.html#rtgym.agent.sensory.movement_modulated.mm_base.MMBase.get_specs">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_specs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get specifications of this sensory modality.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Dictionary containing sensory specifications.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;n_cells&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+    
+<div class="viewcode-block" id="MMBase.print_specs">
+<a class="viewcode-back" href="../../../../../rtgym.agent.sensory.movement_modulated.html#rtgym.agent.sensory.movement_modulated.mm_base.MMBase.print_specs">[docs]</a>
+    <span class="k">def</span> <span class="nf">print_specs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Print specifications of this sensory modality.</span>
+<span class="sd">        </span>
+<span class="sd">        Prints the specifications returned by get_specs() in a formatted manner.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">print_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_specs</span><span class="p">())</span></div>
+</div>
+
+</pre></div>
+    </div></div>
+          </main>
+        </div>
+      </div><footer class="py-6 border-t border-border md:py-0">
+    <div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+      <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+        <p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2025, Zhaoze Wang @ Balasubramanian Lab&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+      Built with <a class="font-medium underline underline-offset-4"
+    href="https://www.sphinx-doc.org"
+    rel="noreferrer"> Sphinx 8.2.3 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  🧀 <strong>RatatouGym</strong> - Neural Simulation Gymnasium for Spatial Navigation Research
+</p>
+</div>
+</div>
+</footer>
+    </div>
+    
+    <script src="../../../../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../_static/theme-toggle.js?v=9ab353ff"></script>
+    <script src="../../../../../_static/external-links.js?v=fbcf3ad4"></script>
+    
+</body>
+
+</html>

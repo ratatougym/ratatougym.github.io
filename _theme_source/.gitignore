@@ -1,0 +1,17 @@
+node_modules
+yarn-error.log
+__pycache__
+dist
+pip-wheel-metadata/
+sphinxawesome_theme.egg-info
+docs/autoapi
+docs/public
+docs/public/xml
+.nox
+.coverage
+.vscode
+.history
+.python-version
+.env
+.yarn
+jupyter_execute

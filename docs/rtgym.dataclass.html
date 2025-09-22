@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./" x-data="{activeSection: ''}">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#030711" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>rtgym.dataclass package | RatatouGym 1.0.0 documentation</title>
+  <meta property="og:title" content="rtgym.dataclass package | RatatouGym 1.0.0 documentation" />
+  <meta name="twitter:title" content="rtgym.dataclass package | RatatouGym 1.0.0 documentation" />
+  <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8d216cef" />
+  <link rel="stylesheet" type="text/css" href="_static/theme.css?v=f96196c2" />
+  <link rel="icon" href="_static/cheese.ico" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="next" title="rtgym.utils package" href="rtgym.utils.html" />
+  <link rel="prev" title="rtgym.arena.arena_shapes package" href="rtgym.arena.arena_shapes.html" />
+</head>
+
+<body x-data="{ showSidebar: false, showScrollTop: false }"
+  class="min-h-screen font-sans antialiased bg-background text-foreground" :class="{ 'overflow-hidden': showSidebar }">
+  <div x-cloak x-show="showSidebar"
+    class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden"
+    @click.self="showSidebar = false"></div><div id="page" class="relative flex flex-col min-h-screen"><a href="#content"
+      class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border bg-background/90 backdrop-blur"><div class="container flex items-center h-14">
+    <div class="hidden mr-4 md:flex">
+      <a href="index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+      </a></div><button
+      class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
+      type="button" @click="showSidebar = true">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
+        fill="currentColor">
+        <path
+          d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z" />
+      </svg>
+      <span class="sr-only">Toggle navigation menu</span>
+    </button>
+    <div class="flex items-center justify-between flex-1 gap-2 sm:gap-4 md:justify-end">
+      <div class="flex-1 w-full md:w-auto md:flex-none"><form id="searchbox"
+      action="search.html"
+      method="get"
+      class="relative flex items-center group"
+      @keydown.k.window.meta="$refs.search.focus()">
+  <input x-ref="search"
+          name="q"
+          id="search-input"
+          type="search"
+          aria-label="Search the docs"
+          placeholder="Search ..."
+          class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" />
+  <kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+    <span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+      </div>
+      <nav class="flex items-center gap-1">
+        
+        <button
+          id="theme-toggle"
+          type="button"
+          title="Toggle dark/light mode"
+          class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9"
+          aria-label="Toggle dark/light mode">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <div class="flex-1"><div
+        class="container md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside id="left-sidebar"
+  class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full overflow-y-auto border-r border-border md:sticky"
+  :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }">
+
+    <a href="index.html" class="justify-start text-sm md:!hidden bg-background"><span class="font-bold text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+    </a>
+
+    <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0">
+      <div class="overflow-y-auto h-full w-full relative pr-6">
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="rtgym.html">rtgym package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="rtgym.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.html#module-rtgym.rtgym">rtgym.rtgym module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.html#module-rtgym">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rtgym.agent.html">rtgym.agent package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rtgym.arena.html">rtgym.arena package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">rtgym.dataclass package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.dataclass.agent_state">rtgym.dataclass.agent_state module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.dataclass.raw_agent_state">rtgym.dataclass.raw_agent_state module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.dataclass.raw_trajectory">rtgym.dataclass.raw_trajectory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.dataclass.trajectory">rtgym.dataclass.trajectory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.dataclass">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rtgym.utils.html">rtgym.utils package</a></li>
+</ul>
+
+      </div>
+    </div>
+    <button type="button" @click="showSidebar = false"
+      class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" fill="currentColor"
+        stroke="none" class="h-4 w-4">
+        <path
+          d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z" />
+      </svg>
+    </button>
+  </aside>
+          <main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_250px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs"
+     class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+  <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground"
+     href="index.html">
+    <span class="hidden md:inline">RatatouGym 1.0.0 documentation</span>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         height="18"
+         width="18"
+         viewBox="0 96 960 960"
+         aria-label="Home"
+         fill="currentColor"
+         stroke="none"
+         class="md:hidden">
+      <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z" />
+    </svg>
+  </a>
+  
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap"
+       href="rtgym.html">rtgym package</a>
+    
+<div class="mr-1">/</div><span aria-current="page"
+        class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rtgym.dataclass package</span>
+</nav>
+
+    <div id="content" role="main">
+      <section id="rtgym-dataclass-package">
+<h1>rtgym.dataclass package<a class="headerlink" href="#rtgym-dataclass-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-rtgym.dataclass.agent_state">
+<span id="rtgym-dataclass-agent-state-module"></span><h2>rtgym.dataclass.agent_state module<a class="headerlink" href="#module-rtgym.dataclass.agent_state" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rtgym.dataclass.agent_state.AgentState">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AgentState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/agent_state.html#AgentState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.agent_state.AgentState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Agent state data container for a single timestep.</p>
+<p>Holds the state data of the agent including coordinates, head directions,
+and displacements. This represents a snapshot of the agent’s state at a
+single timestep and can hold multiple batches of data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coord</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Integer coordinates of the agent.</p></li>
+<li><p><strong>hd</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Head direction of the agent in radians.</p></li>
+<li><p><strong>disp</strong> (<em>np.ndarray</em><em>, </em><em>optional</em>) – Displacement vector of the agent.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If all input parameters are None.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For unknown values, use np.nan as placeholder. This data class helps
+standardize the data format for all sensory modalities.</p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.agent_state.AgentState.float_coord">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">float_coord</span></span><a class="headerlink" href="#rtgym.dataclass.agent_state.AgentState.float_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.agent_state.AgentState.int_coord">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">int_coord</span></span><a class="headerlink" href="#rtgym.dataclass.agent_state.AgentState.int_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rtgym.dataclass.raw_agent_state">
+<span id="rtgym-dataclass-raw-agent-state-module"></span><h2>rtgym.dataclass.raw_agent_state module<a class="headerlink" href="#module-rtgym.dataclass.raw_agent_state" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_agent_state.RawAgentState">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RawAgentState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mv_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/raw_agent_state.html#RawAgentState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.raw_agent_state.RawAgentState" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the data class specifically designed to store the behavior generation state.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_agent_state.RawAgentState.batch_size">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_size</span></span><a class="headerlink" href="#rtgym.dataclass.raw_agent_state.RawAgentState.batch_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_agent_state.RawAgentState.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/raw_agent_state.html#RawAgentState.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.raw_agent_state.RawAgentState.copy" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_agent_state.RawAgentState.float_coord">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">float_coord</span></span><a class="headerlink" href="#rtgym.dataclass.raw_agent_state.RawAgentState.float_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_agent_state.RawAgentState.int_coord">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">int_coord</span></span><a class="headerlink" href="#rtgym.dataclass.raw_agent_state.RawAgentState.int_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_agent_state.RawAgentState.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/raw_agent_state.html#RawAgentState.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.raw_agent_state.RawAgentState.reset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_agent_state.RawAgentState.to_agent_state">
+<span class="sig-name descname"><span class="pre">to_agent_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/raw_agent_state.html#RawAgentState.to_agent_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.raw_agent_state.RawAgentState.to_agent_state" title="Link to this definition"></a></dt>
+<dd><p>Cast this internal state to a regular agent state.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rtgym.dataclass.raw_trajectory">
+<span id="rtgym-dataclass-raw-trajectory-module"></span><h2>rtgym.dataclass.raw_trajectory module<a class="headerlink" href="#module-rtgym.dataclass.raw_trajectory" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_trajectory.RawTrajectory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RawTrajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dur_ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/raw_trajectory.html#RawTrajectory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.raw_trajectory.RawTrajectory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_trajectory.RawTrajectory.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bhv_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState" title="rtgym.dataclass.raw_agent_state.RawAgentState"><span class="pre">RawAgentState</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/raw_trajectory.html#RawTrajectory.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.raw_trajectory.RawTrajectory.append" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_trajectory.RawTrajectory.to_trajectory">
+<span class="sig-name descname"><span class="pre">to_trajectory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/raw_trajectory.html#RawTrajectory.to_trajectory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.raw_trajectory.RawTrajectory.to_trajectory" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.raw_trajectory.RawTrajectory.update_state">
+<span class="sig-name descname"><span class="pre">update_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bhv_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState" title="rtgym.dataclass.raw_agent_state.RawAgentState"><span class="pre">RawAgentState</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/raw_trajectory.html#RawTrajectory.update_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.raw_trajectory.RawTrajectory.update_state" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rtgym.dataclass.trajectory">
+<span id="rtgym-dataclass-trajectory-module"></span><h2>rtgym.dataclass.trajectory module<a class="headerlink" href="#module-rtgym.dataclass.trajectory" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coord</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/trajectory.html#Trajectory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to hold trial data for the agent. This class is used to store the
+coordinates, coordinates in float, and head directions of the agent.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.coord">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">coord</span></span><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/trajectory.html#Trajectory.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.copy" title="Link to this definition"></a></dt>
+<dd><p>Returns a copy of the Trajectory object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.float_coord">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">float_coord</span></span><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.float_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.from_dict">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/trajectory.html#Trajectory.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.int_coord">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">int_coord</span></span><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.int_coord" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.load">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/trajectory.html#Trajectory.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.load" title="Link to this definition"></a></dt>
+<dd><p>Load a Trajectory object from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The file path to load the Trajectory object from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A Trajectory object loaded from the specified file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory" title="rtgym.dataclass.trajectory.Trajectory">Trajectory</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.n_steps">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">n_steps</span></span><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.n_steps" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of time steps in the trajectory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.reshape">
+<span class="sig-name descname"><span class="pre">reshape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/trajectory.html#Trajectory.reshape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.reshape" title="Link to this definition"></a></dt>
+<dd><p>Reshape the trajectory data to the specified shape.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.slice">
+<span class="sig-name descname"><span class="pre">slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/trajectory.html#Trajectory.slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.slice" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.state_dict">
+<span class="sig-name descname"><span class="pre">state_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/trajectory.html#Trajectory.state_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.state_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.dataclass.trajectory.Trajectory.t_range">
+<span class="sig-name descname"><span class="pre">t_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">range_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/dataclass/trajectory.html#Trajectory.t_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.dataclass.trajectory.Trajectory.t_range" title="Link to this definition"></a></dt>
+<dd><p>Returns a new Trajectory object with data trimmed to the specified range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>range</strong> (<em>list</em><em> or </em><em>tuple</em>) – A 2-element list or tuple specifying the start
+and end indices for trimming.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Trajectory object with trimmed data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory" title="rtgym.dataclass.trajectory.Trajectory">Trajectory</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rtgym.dataclass">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-rtgym.dataclass" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+    </div></div><aside id="right-sidebar" class="hidden text-sm xl:block">
+  <div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] h-full overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+    <ul>
+<li><a class="reference internal" href="#">rtgym.dataclass package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-rtgym.dataclass.agent_state">rtgym.dataclass.agent_state module</a><ul>
+<li><a class="reference internal" href="#rtgym.dataclass.agent_state.AgentState"><code class="docutils literal notranslate"><span class="pre">AgentState</span></code></a><ul>
+<li><a class="reference internal" href="#rtgym.dataclass.agent_state.AgentState.float_coord"><code class="docutils literal notranslate"><span class="pre">AgentState.float_coord</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.agent_state.AgentState.int_coord"><code class="docutils literal notranslate"><span class="pre">AgentState.int_coord</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.dataclass.raw_agent_state">rtgym.dataclass.raw_agent_state module</a><ul>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState"><code class="docutils literal notranslate"><span class="pre">RawAgentState</span></code></a><ul>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState.batch_size"><code class="docutils literal notranslate"><span class="pre">RawAgentState.batch_size</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState.copy"><code class="docutils literal notranslate"><span class="pre">RawAgentState.copy()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState.float_coord"><code class="docutils literal notranslate"><span class="pre">RawAgentState.float_coord</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState.int_coord"><code class="docutils literal notranslate"><span class="pre">RawAgentState.int_coord</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState.reset"><code class="docutils literal notranslate"><span class="pre">RawAgentState.reset()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_agent_state.RawAgentState.to_agent_state"><code class="docutils literal notranslate"><span class="pre">RawAgentState.to_agent_state()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.dataclass.raw_trajectory">rtgym.dataclass.raw_trajectory module</a><ul>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_trajectory.RawTrajectory"><code class="docutils literal notranslate"><span class="pre">RawTrajectory</span></code></a><ul>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_trajectory.RawTrajectory.append"><code class="docutils literal notranslate"><span class="pre">RawTrajectory.append()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_trajectory.RawTrajectory.to_trajectory"><code class="docutils literal notranslate"><span class="pre">RawTrajectory.to_trajectory()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.raw_trajectory.RawTrajectory.update_state"><code class="docutils literal notranslate"><span class="pre">RawTrajectory.update_state()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.dataclass.trajectory">rtgym.dataclass.trajectory module</a><ul>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory"><code class="docutils literal notranslate"><span class="pre">Trajectory</span></code></a><ul>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.coord"><code class="docutils literal notranslate"><span class="pre">Trajectory.coord</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.copy"><code class="docutils literal notranslate"><span class="pre">Trajectory.copy()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.float_coord"><code class="docutils literal notranslate"><span class="pre">Trajectory.float_coord</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.from_dict"><code class="docutils literal notranslate"><span class="pre">Trajectory.from_dict()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.int_coord"><code class="docutils literal notranslate"><span class="pre">Trajectory.int_coord</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.load"><code class="docutils literal notranslate"><span class="pre">Trajectory.load()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.n_steps"><code class="docutils literal notranslate"><span class="pre">Trajectory.n_steps</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.reshape"><code class="docutils literal notranslate"><span class="pre">Trajectory.reshape()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.slice"><code class="docutils literal notranslate"><span class="pre">Trajectory.slice()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.state_dict"><code class="docutils literal notranslate"><span class="pre">Trajectory.state_dict()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.dataclass.trajectory.Trajectory.t_range"><code class="docutils literal notranslate"><span class="pre">Trajectory.t_range()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.dataclass">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+          </main>
+        </div>
+      </div><footer class="py-6 border-t border-border md:py-0">
+    <div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+      <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+        <p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2025, Zhaoze Wang @ Balasubramanian Lab&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+      Built with <a class="font-medium underline underline-offset-4"
+    href="https://www.sphinx-doc.org"
+    rel="noreferrer"> Sphinx 8.2.3 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  🧀 <strong>RatatouGym</strong> - Neural Simulation Gymnasium for Spatial Navigation Research
+</p>
+</div>
+</div>
+</footer>
+    </div>
+    
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/theme-toggle.js?v=9ab353ff"></script>
+    <script src="_static/external-links.js?v=fbcf3ad4"></script>
+    
+</body>
+
+</html>

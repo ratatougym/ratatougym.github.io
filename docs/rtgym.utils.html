@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en" data-content_root="./" x-data="{activeSection: ''}">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#030711" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>rtgym.utils package | RatatouGym 1.0.0 documentation</title>
+  <meta property="og:title" content="rtgym.utils package | RatatouGym 1.0.0 documentation" />
+  <meta name="twitter:title" content="rtgym.utils package | RatatouGym 1.0.0 documentation" />
+  <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8d216cef" />
+  <link rel="stylesheet" type="text/css" href="_static/theme.css?v=f96196c2" />
+  <link rel="icon" href="_static/cheese.ico" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="next" title="rtgym.utils.visualization package" href="rtgym.utils.visualization.html" />
+  <link rel="prev" title="rtgym.dataclass package" href="rtgym.dataclass.html" />
+</head>
+
+<body x-data="{ showSidebar: false, showScrollTop: false }"
+  class="min-h-screen font-sans antialiased bg-background text-foreground" :class="{ 'overflow-hidden': showSidebar }">
+  <div x-cloak x-show="showSidebar"
+    class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden"
+    @click.self="showSidebar = false"></div><div id="page" class="relative flex flex-col min-h-screen"><a href="#content"
+      class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-sm border-border bg-background/90 backdrop-blur"><div class="container flex items-center h-14">
+    <div class="hidden mr-4 md:flex">
+      <a href="index.html" class="flex items-center mr-6"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+      </a></div><button
+      class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden"
+      type="button" @click="showSidebar = true">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" aria-hidden="true"
+        fill="currentColor">
+        <path
+          d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z" />
+      </svg>
+      <span class="sr-only">Toggle navigation menu</span>
+    </button>
+    <div class="flex items-center justify-between flex-1 gap-2 sm:gap-4 md:justify-end">
+      <div class="flex-1 w-full md:w-auto md:flex-none"><form id="searchbox"
+      action="search.html"
+      method="get"
+      class="relative flex items-center group"
+      @keydown.k.window.meta="$refs.search.focus()">
+  <input x-ref="search"
+          name="q"
+          id="search-input"
+          type="search"
+          aria-label="Search the docs"
+          placeholder="Search ..."
+          class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" />
+  <kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+    <span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+      </div>
+      <nav class="flex items-center gap-1">
+        
+        <button
+          id="theme-toggle"
+          type="button"
+          title="Toggle dark/light mode"
+          class="inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9"
+          aria-label="Toggle dark/light mode">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+    <div class="flex-1"><div
+        class="container md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside id="left-sidebar"
+  class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full overflow-y-auto border-r border-border md:sticky"
+  :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }">
+
+    <a href="index.html" class="justify-start text-sm md:!hidden bg-background"><span class="font-bold text-clip whitespace-nowrap">RatatouGym 1.0.0 documentation</span>
+    </a>
+
+    <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0">
+      <div class="overflow-y-auto h-full w-full relative pr-6">
+<h3><a href="index.html">Table of Contents</a></h3>
+<p class="caption" role="heading"><span class="caption-text">Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="rtgym.html">rtgym package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="rtgym.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.html#module-rtgym.rtgym">rtgym.rtgym module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.html#module-rtgym">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rtgym.agent.html">rtgym.agent package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rtgym.arena.html">rtgym.arena package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rtgym.dataclass.html">rtgym.dataclass package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">rtgym.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.utils.common">rtgym.utils.common module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.utils.data_processing">rtgym.utils.data_processing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.utils.decode_response">rtgym.utils.decode_response module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.utils.masking">rtgym.utils.masking module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.utils.verbose">rtgym.utils.verbose module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rtgym.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+    <button type="button" @click="showSidebar = false"
+      class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 96 960 960" fill="currentColor"
+        stroke="none" class="h-4 w-4">
+        <path
+          d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z" />
+      </svg>
+    </button>
+  </aside>
+          <main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_250px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs"
+     class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+  <a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground"
+     href="index.html">
+    <span class="hidden md:inline">RatatouGym 1.0.0 documentation</span>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         height="18"
+         width="18"
+         viewBox="0 96 960 960"
+         aria-label="Home"
+         fill="currentColor"
+         stroke="none"
+         class="md:hidden">
+      <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z" />
+    </svg>
+  </a>
+  
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap"
+       href="rtgym.html">rtgym package</a>
+    
+<div class="mr-1">/</div><span aria-current="page"
+        class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">rtgym.utils package</span>
+</nav>
+
+    <div id="content" role="main">
+      <section id="rtgym-utils-package">
+<h1>rtgym.utils package<a class="headerlink" href="#rtgym-utils-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="rtgym.utils.visualization.html">rtgym.utils.visualization package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.utils.visualization.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.utils.visualization.html#module-rtgym.utils.visualization.plot_ratemap">rtgym.utils.visualization.plot_ratemap module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="rtgym.utils.visualization.html#rtgym.utils.visualization.plot_ratemap.plot_ratemaps"><code class="docutils literal notranslate"><span class="pre">plot_ratemaps()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rtgym.utils.visualization.html#module-rtgym.utils.visualization">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-rtgym.utils.common">
+<span id="rtgym-utils-common-module"></span><h2>rtgym.utils.common module<a class="headerlink" href="#module-rtgym.utils.common" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.common.hash_seed">
+<span class="sig-name descname"><span class="pre">hash_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensory_key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/common.html#hash_seed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.common.hash_seed" title="Link to this definition"></a></dt>
+<dd><p>Generate a hashed seed from base seed and sensory key.</p>
+<p>Ensures different sensory cells have different random number generators
+even when using the same base seed by incorporating the sensory key
+into the seed generation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>int</em>) – Base seed value.</p></li>
+<li><p><strong>sensory_key</strong> (<em>str</em>) – Unique key for the sensory modality.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Hashed seed value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-rtgym.utils.data_processing">
+<span id="rtgym-utils-data-processing-module"></span><h2>rtgym.utils.data_processing module<a class="headerlink" href="#module-rtgym.utils.data_processing" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.RatemapAggregator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RatemapAggregator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arena_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#RatemapAggregator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.RatemapAggregator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.RatemapAggregator.get_ratemap">
+<span class="sig-name descname"><span class="pre">get_ratemap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#RatemapAggregator.get_ratemap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.RatemapAggregator.get_ratemap" title="Link to this definition"></a></dt>
+<dd><p>Returns the final normalized firing fields (n_cells, n_x, n_y).
+Unvisited points (visit_count=0) will be NaN.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.RatemapAggregator.init_counts">
+<span class="sig-name descname"><span class="pre">init_counts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#RatemapAggregator.init_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.RatemapAggregator.init_counts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.RatemapAggregator.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#RatemapAggregator.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.RatemapAggregator.reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the aggregator (clears all partial sums and counts).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.RatemapAggregator.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#RatemapAggregator.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.RatemapAggregator.update" title="Link to this definition"></a></dt>
+<dd><p>Accumulate partial sums and visit counts from new data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>states</strong> (<em>torch.Tensor</em><em> or </em><em>np.ndarray</em>) – Shape=(n_batches, n_timesteps, n_cells) or (n_timesteps, n_batches, n_cells).</p></li>
+<li><p><strong>coords</strong> (<em>torch.Tensor</em><em> or </em><em>np.ndarray</em>) – Shape=(n_batches, n_timesteps, 2) or (n_timesteps, n_batches, 2).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.combine_trajectories">
+<span class="sig-name descname"><span class="pre">combine_trajectories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#combine_trajectories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.combine_trajectories" title="Link to this definition"></a></dt>
+<dd><p>Merge a list of Trajectory objects into a single Trajectory object</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.get_gym_dimensions">
+<span class="sig-name descname"><span class="pre">get_gym_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arena_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#get_gym_dimensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.get_gym_dimensions" title="Link to this definition"></a></dt>
+<dd><p>Get the dimensions of the gym background</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.restrain2ff">
+<span class="sig-name descname"><span class="pre">restrain2ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arena_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#restrain2ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.restrain2ff" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.states2ff">
+<span class="sig-name descname"><span class="pre">states2ff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arena_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#states2ff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.states2ff" title="Link to this definition"></a></dt>
+<dd><p>Takes the states and coords and returns the firing fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>states</strong> – shape=(n_batches, n_timesteps, n_cells) or (n_timesteps, n_batches, n_cells)</p></li>
+<li><p><strong>coords</strong> – shape=(n_batches, n_timesteps, 2) or (n_timesteps, n_batches, 2)</p></li>
+<li><p><strong>gym_bg</strong> – shape=(n_x, n_y), 0 for free space, 1 for walls</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>shape=(n_cells, n_x, n_y)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>field</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.data_processing.states_to_ratemap">
+<span class="sig-name descname"><span class="pre">states_to_ratemap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arena_map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/data_processing.html#states_to_ratemap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.data_processing.states_to_ratemap" title="Link to this definition"></a></dt>
+<dd><p>Takes the states and coords and returns the firing fields using PyTorch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>states</strong> – shape=(n_batches, n_timesteps, n_cells) or (n_timesteps, n_batches, n_cells)</p></li>
+<li><p><strong>coords</strong> – shape=(n_batches, n_timesteps, 2) or (n_timesteps, n_batches, 2)</p></li>
+<li><p><strong>arena_map</strong> – shape=(n_x, n_y), 0 for free space, 1 for walls (torch.Tensor)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>shape=(n_cells, n_x, n_y) (torch.Tensor)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>field</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-rtgym.utils.decode_response">
+<span id="rtgym-utils-decode-response-module"></span><h2>rtgym.utils.decode_response module<a class="headerlink" href="#module-rtgym.utils.decode_response" title="Link to this heading"></a></h2>
+<p>Utility functions for decoding sensory responses to spatial trajectories.</p>
+<p>This module contains algorithms for converting high-dimensional sensory responses
+(e.g., from place cells, grid cells) back to spatial coordinates using various
+optimization techniques including nearest neighbor search, spatial interpolation,
+and approximate search methods.</p>
+<section id="mathematical-background">
+<h3>Mathematical Background<a class="headerlink" href="#mathematical-background" title="Link to this heading"></a></h3>
+<p>Given sensory response vectors <span class="math notranslate nohighlight">\(\mathbf{r} \in \mathbb{R}^d\)</span> and response maps
+<span class="math notranslate nohighlight">\(\mathbf{M} \in \mathbb{R}^{H \times W \times d}\)</span>, we seek to find coordinates
+<span class="math notranslate nohighlight">\((y,x)\)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[(y,x) = \arg\min_{(i,j)} \|\mathbf{r} - \mathbf{M}[i,j,:]\|_2^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\|\cdot\|_2\)</span> denotes the Euclidean norm.</p>
+<p>Authors: RatatouGym Development Team</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.decode_response.create_dataclass_result">
+<span class="sig-name descname"><span class="pre">create_dataclass_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred_coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trajectory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="rtgym.dataclass.html#rtgym.dataclass.trajectory.Trajectory" title="rtgym.dataclass.trajectory.Trajectory"><span class="pre">Trajectory</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="rtgym.dataclass.html#rtgym.dataclass.agent_state.AgentState" title="rtgym.dataclass.agent_state.AgentState"><span class="pre">AgentState</span></a></span></span><a class="reference internal" href="_modules/rtgym/utils/decode_response.html#create_dataclass_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.decode_response.create_dataclass_result" title="Link to this definition"></a></dt>
+<dd><p>Create appropriate dataclass result from decoded coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pred_coords</strong> (<em>np.ndarray</em>) – Decoded coordinate array</p></li>
+<li><p><strong>is_trajectory</strong> (<em>bool</em>) – Whether to create Trajectory or AgentState object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Trajectory or AgentState</em> – Dataclass object containing the coordinates</p></li>
+<li><p><em>r</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.decode_response.decode_response_euclidean">
+<span class="sig-name descname"><span class="pre">decode_response_euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/rtgym/utils/decode_response.html#decode_response_euclidean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.decode_response.decode_response_euclidean" title="Link to this definition"></a></dt>
+<dd><p>Decode sensory responses using brute-force Euclidean distance computation.</p>
+<p>This is the reference implementation that computes the exact nearest neighbor
+by evaluating the Euclidean distance between each query response and all
+template responses in the response maps.</p>
+<section id="mathematical-formulation">
+<h3>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Link to this heading"></a></h3>
+<p>For response vector <span class="math notranslate nohighlight">\(\mathbf{r} \in \mathbb{R}^d\)</span> and response map
+<span class="math notranslate nohighlight">\(\mathbf{M} \in \mathbb{R}^{H \times W \times d}\)</span>, compute:</p>
+<div class="math notranslate nohighlight">
+\[d^2(\mathbf{r}, \mathbf{M}[i,j]) = \sum_{k=1}^{d} (r_k - M[i,j,k])^2\]</div>
+<p>Return:</p>
+<div class="math notranslate nohighlight">
+\[\arg\min_{(i,j)} d^2(\mathbf{r}, \mathbf{M}[i,j])\]</div>
+<dl class="field-list">
+<dt class="field-odd">param response<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sensory response array of shape:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(B,</span> <span class="pre">T,</span> <span class="pre">D)</span></code> for trajectory decoding</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(B,</span> <span class="pre">D)</span></code> for single state decoding</p></li>
+</ul>
+<p>where <code class="docutils literal notranslate"><span class="pre">B</span></code> = batch size, <code class="docutils literal notranslate"><span class="pre">T</span></code> = time steps, <code class="docutils literal notranslate"><span class="pre">D</span></code> = feature dimensions</p>
+</dd>
+<dt class="field-even">type response<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">param res_maps<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response template maps of shape <code class="docutils literal notranslate"><span class="pre">(D,</span> <span class="pre">H,</span> <span class="pre">W)</span></code> where <code class="docutils literal notranslate"><span class="pre">H</span></code> = arena height,
+<code class="docutils literal notranslate"><span class="pre">W</span></code> = arena width</p>
+</dd>
+<dt class="field-even">type res_maps<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><em>tuple of (np.ndarray, bool)</em> –</p>
+<ul>
+<li><p><strong>decoded_coordinates</strong> : Array of shape <code class="docutils literal notranslate"><span class="pre">(B,T,2)</span></code> or <code class="docutils literal notranslate"><span class="pre">(B,2)</span></code> containing spatial coordinates</p></li>
+<li><p><strong>is_trajectory</strong> : Boolean indicating if input was trajectory (3D) or state (2D)</p></li>
+</ul>
+</li>
+<li><p><em>Complexity</em></p></li>
+<li><p><em>———-</em></p></li>
+<li><p><strong>- **Time**</strong> (<span class="math notranslate nohighlight">\(O(B \cdot T \cdot H \cdot W \cdot D)\)</span> for trajectory, <span class="math notranslate nohighlight">\(O(B \cdot H \cdot W \cdot D)\)</span> for states)</p></li>
+<li><p><strong>- **Space**</strong> (<span class="math notranslate nohighlight">\(O(H \cdot W \cdot D)\)</span>)</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method provides exact results but can be computationally expensive
+for large arenas or high-dimensional feature spaces. Consider using
+approximate methods for better performance.
+r</p>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.decode_response.decode_response_faiss">
+<span class="sig-name descname"><span class="pre">decode_response_faiss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/rtgym/utils/decode_response.html#decode_response_faiss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.decode_response.decode_response_faiss" title="Link to this definition"></a></dt>
+<dd><p>Decode sensory responses using Facebook AI Similarity Search (FAISS).</p>
+<p>FAISS provides state-of-the-art performance for large-scale nearest neighbor
+search through optimized indexing structures. This implementation uses
+Inverted File Index (IVF) with exact search within clusters.</p>
+<section id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Cluster response map features into <code class="docutils literal notranslate"><span class="pre">n_clusters</span></code> groups using k-means</p></li>
+<li><p>Build inverted index mapping clusters to their members</p></li>
+<li><p>For each query, search only relevant clusters for nearest neighbors</p></li>
+<li><p>Return exact nearest neighbor within searched clusters</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">param response<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sensory response array</p>
+</dd>
+<dt class="field-even">type response<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">param res_maps<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response template maps</p>
+</dd>
+<dt class="field-even">type res_maps<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">param n_clusters<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of clusters for IVF index:</p>
+<ul class="simple">
+<li><p>More clusters: faster search, potentially lower recall</p></li>
+<li><p>Fewer clusters: slower search, higher recall</p></li>
+<li><p>Recommended: <span class="math notranslate nohighlight">\(\sqrt{\text{number of points}}\)</span> to <span class="math notranslate nohighlight">\(\text{n_points}/39\)</span></p></li>
+</ul>
+</dd>
+<dt class="field-even">type n_clusters<span class="colon">:</span></dt>
+<dd class="field-even"><p>int, default=100</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><em>tuple of (np.ndarray, bool)</em> – <code class="docutils literal notranslate"><span class="pre">(decoded_coordinates,</span> <span class="pre">is_trajectory)</span></code></p></li>
+<li><p><em>Performance Characteristics</em></p></li>
+<li><p><em>—————————</em></p></li>
+<li><p><strong>- **Index build time**</strong> (<span class="math notranslate nohighlight">\(O(H \cdot W \cdot D \cdot \log(\text{n_clusters}))\)</span>)</p></li>
+<li><p><strong>- **Query time**</strong> (<span class="math notranslate nohighlight">\(O(B \cdot T \cdot \sqrt{H \cdot W})\)</span> approximately)</p></li>
+<li><p><strong>- **Memory usage**</strong> (<em>~1.5x the size of original data</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Requires FAISS library installation</p></li>
+<li><p>Optimized for very large datasets (&gt;10k points)</p></li>
+<li><p>Can utilize GPU acceleration with appropriate FAISS build</p></li>
+<li><p>May return approximate results depending on <code class="docutils literal notranslate"><span class="pre">nprobe</span></code> parameter</p></li>
+</ul>
+<p>r</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.decode_response.decode_response_interpolation">
+<span class="sig-name descname"><span class="pre">decode_response_interpolation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_anchors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/rtgym/utils/decode_response.html#decode_response_interpolation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.decode_response.decode_response_interpolation" title="Link to this definition"></a></dt>
+<dd><p>Decode sensory responses using spatial interpolation with anchor points.</p>
+<p>This method exploits the spatial continuity assumption: nearby locations
+should have similar sensory responses. Instead of exact nearest neighbor
+search, it interpolates coordinates from multiple nearby anchor points.</p>
+<section id="id1">
+<h3>Algorithm<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">n_anchors</span></code> representative points using k-means clustering</p></li>
+<li><p>For each query response, find <code class="docutils literal notranslate"><span class="pre">k</span></code> nearest anchor points</p></li>
+<li><p>Compute inverse-distance weighted interpolation of anchor coordinates</p></li>
+<li><p>Return interpolated coordinates (may be non-integer)</p></li>
+</ol>
+</section>
+<section id="id2">
+<h3>Mathematical Formulation<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>Given <span class="math notranslate nohighlight">\(k\)</span> nearest anchors with coordinates <span class="math notranslate nohighlight">\(\mathbf{c}_1,\ldots,\mathbf{c}_k\)</span>
+and distances <span class="math notranslate nohighlight">\(d_1,\ldots,d_k\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}w_i &amp;= \frac{1}{d_i + \varepsilon} \quad \text{where } \varepsilon \text{ prevents division by zero}\\\tilde{w}_i &amp;= \frac{w_i}{\sum_{j=1}^k w_j} \quad \text{(normalized weights)}\\\hat{\mathbf{c}} &amp;= \sum_{i=1}^k \tilde{w}_i \cdot \mathbf{c}_i \quad \text{(interpolated coordinate)}\end{aligned}\end{align} \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">param response<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sensory response array</p>
+</dd>
+<dt class="field-even">type response<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">param res_maps<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response template maps</p>
+</dd>
+<dt class="field-even">type res_maps<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">param n_anchors<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of anchor points to select:</p>
+<ul class="simple">
+<li><p>More anchors: better spatial resolution, slower computation</p></li>
+<li><p>Fewer anchors: faster computation, lower spatial precision</p></li>
+</ul>
+</dd>
+<dt class="field-even">type n_anchors<span class="colon">:</span></dt>
+<dd class="field-even"><p>int, default=1000</p>
+</dd>
+<dt class="field-odd">param random_state<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Random seed for reproducible anchor selection</p>
+</dd>
+<dt class="field-even">type random_state<span class="colon">:</span></dt>
+<dd class="field-even"><p>int, default=42</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><em>tuple of (np.ndarray, bool)</em> – <code class="docutils literal notranslate"><span class="pre">(decoded_coordinates,</span> <span class="pre">is_trajectory)</span></code>
+Coordinates are rounded to integers and clipped to valid arena bounds</p></li>
+<li><p><em>Advantages</em></p></li>
+<li><p><em>———-</em></p></li>
+<li><p><em>- Smooth spatial interpolation reduces noise</em></p></li>
+<li><p><em>- Faster than exact nearest neighbor for large datasets</em></p></li>
+<li><p><em>- Naturally handles uncertainty through weighted averaging</em></p></li>
+<li><p><em>Limitations</em></p></li>
+<li><p><em>———–</em></p></li>
+<li><p><em>- May not find exact nearest neighbor</em></p></li>
+<li><ul>
+<li><p>Requires tuning of <code class="docutils literal notranslate"><span class="pre">n_anchors</span></code> parameter</p></li>
+</ul>
+</li>
+<li><p><em>- Assumes local spatial smoothness in response patterns</em></p></li>
+<li><p><em>Complexity</em></p></li>
+<li><p><em>———-</em></p></li>
+<li><p><strong>- **Anchor selection**</strong> (<span class="math notranslate nohighlight">\(O(H \cdot W \cdot D \cdot \log(\text{n_anchors}))\)</span>)</p></li>
+<li><p><strong>- **Query**</strong> (<span class="math notranslate nohighlight">\(O(B \cdot T \cdot \log(\text{n_anchors}))\)</span>)</p></li>
+<li><p><em>r</em></p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.decode_response.decode_response_kdtree">
+<span class="sig-name descname"><span class="pre">decode_response_kdtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/rtgym/utils/decode_response.html#decode_response_kdtree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.decode_response.decode_response_kdtree" title="Link to this definition"></a></dt>
+<dd><p>Decode sensory responses using K-d tree for accelerated nearest neighbor search.</p>
+<p>K-d trees provide significant speedup over brute force methods, especially
+for high-dimensional feature spaces. The tree is constructed once and then
+queried efficiently for all response vectors.</p>
+<section id="id3">
+<h3>Algorithm<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Build K-d tree on flattened response map features</p></li>
+<li><p>Query tree for nearest neighbors of each response vector</p></li>
+<li><p>Map indices back to spatial coordinates</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">param response<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sensory response array (see <a class="reference internal" href="#rtgym.utils.decode_response.decode_response_euclidean" title="rtgym.utils.decode_response.decode_response_euclidean"><code class="xref py py-func docutils literal notranslate"><span class="pre">decode_response_euclidean()</span></code></a>)</p>
+</dd>
+<dt class="field-even">type response<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">param res_maps<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response template maps (see <a class="reference internal" href="#rtgym.utils.decode_response.decode_response_euclidean" title="rtgym.utils.decode_response.decode_response_euclidean"><code class="xref py py-func docutils literal notranslate"><span class="pre">decode_response_euclidean()</span></code></a>)</p>
+</dd>
+<dt class="field-even">type res_maps<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><em>tuple of (np.ndarray, bool)</em> – Same format as <a class="reference internal" href="#rtgym.utils.decode_response.decode_response_euclidean" title="rtgym.utils.decode_response.decode_response_euclidean"><code class="xref py py-func docutils literal notranslate"><span class="pre">decode_response_euclidean()</span></code></a></p></li>
+<li><p><em>Complexity</em></p></li>
+<li><p><em>———-</em></p></li>
+<li><p><strong>- **Tree construction**</strong> (<span class="math notranslate nohighlight">\(O(H \cdot W \cdot D \cdot \log(H \cdot W))\)</span>)</p></li>
+<li><p><strong>- **Query**</strong> (<span class="math notranslate nohighlight">\(O(B \cdot T \cdot \log(H \cdot W))\)</span> for trajectory)</p></li>
+<li><p><strong>- **Space**</strong> (<span class="math notranslate nohighlight">\(O(H \cdot W \cdot D)\)</span>)</p></li>
+<li><p><em>Advantages</em></p></li>
+<li><p><em>———-</em></p></li>
+<li><p><em>- Significantly faster than brute force for large arenas</em></p></li>
+<li><p><em>- Exact nearest neighbor results</em></p></li>
+<li><p><em>- Memory efficient tree structure</em></p></li>
+<li><p><em>Limitations</em></p></li>
+<li><p><em>———–</em></p></li>
+<li><p><em>- Performance degrades in very high dimensions (curse of dimensionality)</em></p></li>
+<li><p><em>- Tree construction overhead for small datasets</em></p></li>
+<li><p><em>r</em></p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.decode_response.decode_response_torch">
+<span class="sig-name descname"><span class="pre">decode_response_torch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_maps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.device</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/rtgym/utils/decode_response.html#decode_response_torch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.decode_response.decode_response_torch" title="Link to this definition"></a></dt>
+<dd><p>Decode sensory responses using PyTorch for GPU-accelerated computation.</p>
+<p>This implementation leverages PyTorch’s optimized tensor operations and
+optional GPU acceleration for faster distance computation. Memory usage
+is controlled through chunked processing.</p>
+<section id="mathematical-optimization">
+<h3>Mathematical Optimization<a class="headerlink" href="#mathematical-optimization" title="Link to this heading"></a></h3>
+<p>Instead of computing <span class="math notranslate nohighlight">\(\|\mathbf{r} - \mathbf{M}\|^2\)</span> directly, we use the identity:</p>
+<div class="math notranslate nohighlight">
+\[\|\mathbf{r} - \mathbf{M}\|^2 = \|\mathbf{r}\|^2 - 2\langle\mathbf{r},\mathbf{M}\rangle + \|\mathbf{M}\|^2\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\|\mathbf{r}\|^2\)</span> is constant for <span class="math notranslate nohighlight">\(\arg\min\)</span>, we compute:</p>
+<div class="math notranslate nohighlight">
+\[\text{distance} \propto -2\langle\mathbf{r},\mathbf{M}\rangle + \|\mathbf{M}\|^2\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">param response<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sensory response array (numpy or torch tensor)</p>
+</dd>
+<dt class="field-even">type response<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray or torch.Tensor</p>
+</dd>
+<dt class="field-odd">param res_maps<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response template maps (numpy or torch tensor)</p>
+</dd>
+<dt class="field-even">type res_maps<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray or torch.Tensor</p>
+</dd>
+<dt class="field-odd">param device<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Computation device (<code class="docutils literal notranslate"><span class="pre">'cpu'</span></code>, <code class="docutils literal notranslate"><span class="pre">'cuda'</span></code>, or torch.device object).
+If None, automatically selects CUDA if available</p>
+</dd>
+<dt class="field-even">type device<span class="colon">:</span></dt>
+<dd class="field-even"><p>str, torch.device, or None</p>
+</dd>
+<dt class="field-odd">param chunk_size<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of responses to process simultaneously.
+Larger values use more memory but may be faster</p>
+</dd>
+<dt class="field-even">type chunk_size<span class="colon">:</span></dt>
+<dd class="field-even"><p>int, default=1024</p>
+</dd>
+<dt class="field-odd">returns<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><em>tuple of (np.ndarray, bool)</em> – <code class="docutils literal notranslate"><span class="pre">(decoded_coordinates,</span> <span class="pre">is_trajectory)</span></code> as numpy arrays</p></li>
+<li><p><em>Performance Notes</em></p></li>
+<li><p><em>—————–</em></p></li>
+<li><p><em>- GPU acceleration provides 10-100x speedup for large problems</em></p></li>
+<li><p><em>- Chunked processing prevents out-of-memory errors</em></p></li>
+<li><p><em>- Automatic mixed precision could be added for further optimization</em></p></li>
+<li><p><em>Memory Usage</em></p></li>
+<li><p><em>————</em></p></li>
+<li><p>Peak memory ≈ <code class="docutils literal notranslate"><span class="pre">chunk_size</span> <span class="pre">×</span> <span class="pre">H</span> <span class="pre">×</span> <span class="pre">W</span> <span class="pre">×</span> <span class="pre">4</span></code> bytes (for float32)</p></li>
+<li><p><em>r</em></p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-rtgym.utils.masking">
+<span id="rtgym-utils-masking-module"></span><h2>rtgym.utils.masking module<a class="headerlink" href="#module-rtgym.utils.masking" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Masking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_warmup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.device</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">torch.device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for all masking utilities.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking.apply_gaussian_blur">
+<span class="sig-name descname"><span class="pre">apply_gaussian_blur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking.apply_gaussian_blur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking.apply_gaussian_blur" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking.gaussian_kernel_1d">
+<span class="sig-name descname"><span class="pre">gaussian_kernel_1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking.gaussian_kernel_1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking.gaussian_kernel_1d" title="Link to this definition"></a></dt>
+<dd><p>Creates a 1D Gaussian kernel.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking.mask">
+<span class="sig-name descname"><span class="pre">mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking.mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking.mask" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking.new_mask">
+<span class="sig-name descname"><span class="pre">new_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking.new_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking.new_mask" title="Link to this definition"></a></dt>
+<dd><p>Generates a mask with different masking thresholds for each dimension.
+The thresholds are determined based on per-batch and per-dimension masking ratios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>) – Input tensor of shape (batch_size, T, D)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mask tensor of the same shape as x</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking.set_m_max">
+<span class="sig-name descname"><span class="pre">set_m_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking.set_m_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking.set_m_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking.set_m_min">
+<span class="sig-name descname"><span class="pre">set_m_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking.set_m_min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking.set_m_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking.to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking.to" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rtgym.utils.masking.Masking.to_tensor">
+<span class="sig-name descname"><span class="pre">to_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/masking.html#Masking.to_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.masking.Masking.to_tensor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rtgym.utils.verbose">
+<span id="rtgym-utils-verbose-module"></span><h2>rtgym.utils.verbose module<a class="headerlink" href="#module-rtgym.utils.verbose" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.compute_layout">
+<span class="sig-name descname"><span class="pre">compute_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cols</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#compute_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.compute_layout" title="Link to this definition"></a></dt>
+<dd><p>Computes the layout for the grid of plots.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.generate_titles">
+<span class="sig-name descname"><span class="pre">generate_titles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titles</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#generate_titles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.generate_titles" title="Link to this definition"></a></dt>
+<dd><p>Generates titles for the plots.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.plot_dual_field">
+<span class="sig-name descname"><span class="pre">plot_dual_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#plot_dual_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.plot_dual_field" title="Link to this definition"></a></dt>
+<dd><p>Example dual field plotting function.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.plot_dual_fields">
+<span class="sig-name descname"><span class="pre">plot_dual_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#plot_dual_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.plot_dual_fields" title="Link to this definition"></a></dt>
+<dd><p>Plots dual firing fields on the given axis.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.plot_single_field">
+<span class="sig-name descname"><span class="pre">plot_single_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#plot_single_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.plot_single_field" title="Link to this definition"></a></dt>
+<dd><p>Default function for plotting a single field.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.prepare_fields">
+<span class="sig-name descname"><span class="pre">prepare_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bad_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'jet'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#prepare_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.prepare_fields" title="Link to this definition"></a></dt>
+<dd><p>Prepares the fields by applying a mask and setting up the colormap.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.print_dict">
+<span class="sig-name descname"><span class="pre">print_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#print_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.print_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.title_single_field">
+<span class="sig-name descname"><span class="pre">title_single_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#title_single_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.title_single_field" title="Link to this definition"></a></dt>
+<dd><p>Title generator for single fields.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rtgym.utils.verbose.visualize_fields">
+<span class="sig-name descname"><span class="pre">visualize_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'jet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bad_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rtgym/utils/verbose.html#visualize_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rtgym.utils.verbose.visualize_fields" title="Link to this definition"></a></dt>
+<dd><p>Visualizes fields of cells using a custom plotting and title generation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fields</strong> (<em>list</em><em> or </em><em>array</em>) – Fields to be visualized.</p></li>
+<li><p><strong>titles</strong> (<em>list</em><em>, </em><em>optional</em>) – Titles for each field. Default is None.</p></li>
+<li><p><strong>n_cols</strong> (<em>int</em>) – Number of columns in the grid layout. Default is 5.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – Colormap for visualization. Default is ‘jet’.</p></li>
+<li><p><strong>mask</strong> (<em>array</em><em>, </em><em>optional</em>) – Mask to apply to fields, setting masked areas to NaN. Default is None.</p></li>
+<li><p><strong>bad_color</strong> (<em>str</em>) – Color for masked regions. Default is ‘black’.</p></li>
+<li><p><strong>plot_func</strong> (<em>callable</em>) – Function to handle the plotting for each field.</p></li>
+<li><p><strong>title_func</strong> (<em>callable</em>) – Function to generate titles for each field.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matplotlib figure and axes objects.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>fig, ax</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-rtgym.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-rtgym.utils" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+    </div></div><aside id="right-sidebar" class="hidden text-sm xl:block">
+  <div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] h-full overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+    <ul>
+<li><a class="reference internal" href="#">rtgym.utils package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-rtgym.utils.common">rtgym.utils.common module</a><ul>
+<li><a class="reference internal" href="#rtgym.utils.common.hash_seed"><code class="docutils literal notranslate"><span class="pre">hash_seed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.utils.data_processing">rtgym.utils.data_processing module</a><ul>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.RatemapAggregator"><code class="docutils literal notranslate"><span class="pre">RatemapAggregator</span></code></a><ul>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.RatemapAggregator.get_ratemap"><code class="docutils literal notranslate"><span class="pre">RatemapAggregator.get_ratemap()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.RatemapAggregator.init_counts"><code class="docutils literal notranslate"><span class="pre">RatemapAggregator.init_counts()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.RatemapAggregator.reset"><code class="docutils literal notranslate"><span class="pre">RatemapAggregator.reset()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.RatemapAggregator.update"><code class="docutils literal notranslate"><span class="pre">RatemapAggregator.update()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.combine_trajectories"><code class="docutils literal notranslate"><span class="pre">combine_trajectories()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.get_gym_dimensions"><code class="docutils literal notranslate"><span class="pre">get_gym_dimensions()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.restrain2ff"><code class="docutils literal notranslate"><span class="pre">restrain2ff()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.states2ff"><code class="docutils literal notranslate"><span class="pre">states2ff()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.data_processing.states_to_ratemap"><code class="docutils literal notranslate"><span class="pre">states_to_ratemap()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.utils.decode_response">rtgym.utils.decode_response module</a><ul>
+<li><a class="reference internal" href="#mathematical-background">Mathematical Background</a></li>
+<li><a class="reference internal" href="#rtgym.utils.decode_response.create_dataclass_result"><code class="docutils literal notranslate"><span class="pre">create_dataclass_result()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.decode_response.decode_response_euclidean"><code class="docutils literal notranslate"><span class="pre">decode_response_euclidean()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.decode_response.decode_response_faiss"><code class="docutils literal notranslate"><span class="pre">decode_response_faiss()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.decode_response.decode_response_interpolation"><code class="docutils literal notranslate"><span class="pre">decode_response_interpolation()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.decode_response.decode_response_kdtree"><code class="docutils literal notranslate"><span class="pre">decode_response_kdtree()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.decode_response.decode_response_torch"><code class="docutils literal notranslate"><span class="pre">decode_response_torch()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.utils.masking">rtgym.utils.masking module</a><ul>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking"><code class="docutils literal notranslate"><span class="pre">Masking</span></code></a><ul>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking.apply_gaussian_blur"><code class="docutils literal notranslate"><span class="pre">Masking.apply_gaussian_blur()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking.gaussian_kernel_1d"><code class="docutils literal notranslate"><span class="pre">Masking.gaussian_kernel_1d()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking.mask"><code class="docutils literal notranslate"><span class="pre">Masking.mask()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking.new_mask"><code class="docutils literal notranslate"><span class="pre">Masking.new_mask()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking.set_m_max"><code class="docutils literal notranslate"><span class="pre">Masking.set_m_max()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking.set_m_min"><code class="docutils literal notranslate"><span class="pre">Masking.set_m_min()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking.to"><code class="docutils literal notranslate"><span class="pre">Masking.to()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.masking.Masking.to_tensor"><code class="docutils literal notranslate"><span class="pre">Masking.to_tensor()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.utils.verbose">rtgym.utils.verbose module</a><ul>
+<li><a class="reference internal" href="#rtgym.utils.verbose.compute_layout"><code class="docutils literal notranslate"><span class="pre">compute_layout()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.verbose.generate_titles"><code class="docutils literal notranslate"><span class="pre">generate_titles()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.verbose.plot_dual_field"><code class="docutils literal notranslate"><span class="pre">plot_dual_field()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.verbose.plot_dual_fields"><code class="docutils literal notranslate"><span class="pre">plot_dual_fields()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.verbose.plot_single_field"><code class="docutils literal notranslate"><span class="pre">plot_single_field()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.verbose.prepare_fields"><code class="docutils literal notranslate"><span class="pre">prepare_fields()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.verbose.print_dict"><code class="docutils literal notranslate"><span class="pre">print_dict()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.verbose.title_single_field"><code class="docutils literal notranslate"><span class="pre">title_single_field()</span></code></a></li>
+<li><a class="reference internal" href="#rtgym.utils.verbose.visualize_fields"><code class="docutils literal notranslate"><span class="pre">visualize_fields()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rtgym.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+          </main>
+        </div>
+      </div><footer class="py-6 border-t border-border md:py-0">
+    <div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+      <div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+        <p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© 2025, Zhaoze Wang @ Balasubramanian Lab&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+      Built with <a class="font-medium underline underline-offset-4"
+    href="https://www.sphinx-doc.org"
+    rel="noreferrer"> Sphinx 8.2.3 </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  🧀 <strong>RatatouGym</strong> - Neural Simulation Gymnasium for Spatial Navigation Research
+</p>
+</div>
+</div>
+</footer>
+    </div>
+    
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/theme-toggle.js?v=9ab353ff"></script>
+    <script src="_static/external-links.js?v=fbcf3ad4"></script>
+    
+</body>
+
+</html>
