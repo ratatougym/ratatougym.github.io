@@ -1,0 +1,14 @@
+:root { font-family: Inter, "Helvetica Neue", Arial, sans-serif; color: #171c20; background: #f0f2f3; letter-spacing: 0; color-scheme: light; }
+* { box-sizing: border-box; }
+.site-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+.site-header a { color: inherit; text-decoration: none; }
+.nav-logo { display: inline-flex; align-items: center; gap: 9px; font-family: inherit; font-size: 18px; font-weight: 550; line-height: 1.4; }
+.nav-logo img { width: 28px; height: 28px; object-fit: contain; }
+.site-header nav { display: flex; flex-wrap: wrap; gap: 12px 28px; font-size: 13px; color: #59646c; }
+.site-header nav a:hover, .site-header nav a[aria-current="page"] { color: #167e70; }
+.site-header a:focus-visible { outline: 2px solid #239583; outline-offset: 5px; }
+@media (max-width: 600px) {
+  .site-header { gap: 10px 20px; }
+  .nav-logo { font-size: 16px; }
+  .site-header nav { gap: 14px; font-size: 12px; }
+}

@@ -18,13 +18,29 @@ rtgym.agent.agent module
 
 .. automodule:: rtgym.agent.agent
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:
+
+rtgym.agent.control module
+--------------------------
+
+.. automodule:: rtgym.agent.control
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+rtgym.agent.neurons module
+--------------------------
+
+.. automodule:: rtgym.agent.neurons
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: rtgym.agent
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:

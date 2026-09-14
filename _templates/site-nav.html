@@ -1,0 +1,7 @@
+<a class="nav-logo" href="{{ pathto('index') }}" aria-label="RatatouGym home"><img src="{{ pathto('_static/cheese.ico', 1) }}" width="28" height="28" alt="">RatatouGym</a>
+<nav aria-label="Main navigation">
+  <a href="{{ pathto('overview') }}"{% if pagename == 'overview' %} aria-current="page"{% endif %}>Documentation</a>
+  <a href="{{ pathto('getting_started') }}"{% if pagename == 'getting_started' %} aria-current="page"{% endif %}>Get started</a>
+  <a href="{{ pathto('rtgym') }}"{% if pagename.startswith('rtgym') %} aria-current="page"{% endif %}>API</a>
+  <a href="https://github.com/ratatougym/ratatougym" target="_blank" rel="noopener noreferrer">Source code</a>
+</nav>

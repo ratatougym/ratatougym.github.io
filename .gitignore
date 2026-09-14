@@ -1,1 +1,10 @@
 .claude/
+
+# Full internal gallery and render caches are not part of the public homepage.
+_static/room-gallery/
+_static/scene-demo/
+_static/scene-clips/build-cache.json
+_build/
+.venv/
+__pycache__/
+.source/

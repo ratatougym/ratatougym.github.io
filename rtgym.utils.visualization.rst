@@ -9,13 +9,13 @@ rtgym.utils.visualization.plot\_ratemap module
 
 .. automodule:: rtgym.utils.visualization.plot_ratemap
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: rtgym.utils.visualization
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:

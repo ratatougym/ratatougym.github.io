@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="{{ language|default('en', true) }}" data-content_root="{{ content_root|default('', true) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  {{ metatags }}
+  {% block htmltitle %}<title>{{ title|striptags|e }} | RatatouGym</title>{% endblock %}
+  <link rel="icon" href="{{ pathto('_static/cheese.ico', 1) }}">
+  {% for css in css_files %}
+    {% if css.filename|default(css) != '_static/theme.css' %}{{ css_tag(css) }}{% endif %}
+  {% endfor %}
+  {% if pageurl %}<link rel="canonical" href="{{ pageurl|e }}">{% endif %}
+  {% block linktags %}
+    <link rel="search" title="Search" href="{{ pathto('search') }}">
+    <link rel="index" title="Index" href="{{ pathto('genindex') }}">
+    {% if next %}<link rel="next" href="{{ next.link|e }}">{% endif %}
+    {% if prev %}<link rel="prev" href="{{ prev.link|e }}">{% endif %}
+  {% endblock %}
+  {% block extrahead %}{% endblock %}
+</head>
+<body class="docs-page">
+  <a class="skip-link" href="#content">Skip to content</a>
+  {% block header %}<header class="site-header docs-header">{% include "site-nav.html" %}</header>{% endblock %}
+  <div class="docs-toolbar">
+    <button class="icon-button" id="open-doc-navigation" type="button" aria-label="Open documentation navigation" title="Documentation navigation" aria-haspopup="dialog" aria-controls="mobile-doc-navigation"><i data-lucide="menu" aria-hidden="true"></i></button>
+    {% include "docs-search.html" %}
+  </div>
+  <div class="docs-layout">
+    {% block sidebar %}
+    <aside id="left-sidebar" aria-label="Documentation navigation">
+      {% include "docs-search.html" %}
+      {% include "docs-navigation.html" %}
+    </aside>
+    {% endblock %}
+    {% block main %}<main class="docs-main">{% block body %}{{ body }}{% endblock %}</main>{% endblock %}
+  </div>
+  <dialog id="mobile-doc-navigation" aria-label="Documentation navigation">
+    <div class="dialog-heading"><span>Documentation</span><button class="icon-button" id="close-doc-navigation" type="button" aria-label="Close navigation" title="Close"><i data-lucide="x" aria-hidden="true"></i></button></div>
+    {% include "docs-navigation.html" %}
+  </dialog>
+  <div class="docs-footer">{% block footer %}{% include "footer.html" %}{% endblock %}</div>
+  {% block scripts %}
+    {% for js in script_files %}{{ js_tag(js) }}{% endfor %}
+  {% endblock %}
+</body>
+</html>

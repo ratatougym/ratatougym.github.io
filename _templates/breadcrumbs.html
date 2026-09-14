@@ -1,0 +1,7 @@
+<nav class="breadcrumbs" aria-label="Breadcrumbs">
+  <a href="{{ pathto('overview') }}">Documentation</a>
+  {% for doc in parents if doc.link != pathto('overview') and doc.link != pathto('index') %}
+    <span aria-hidden="true">/</span><a href="{{ doc.link|e }}">{{ doc.title }}</a>
+  {% endfor %}
+  {% if pagename != 'overview' %}<span aria-hidden="true">/</span><span aria-current="page">{{ title }}</span>{% endif %}
+</nav>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>RatatouGym</title>
+  <meta name="description" content="A simulation environment for neuroscience and embodied AI that directly models sensory encodings for ultra-fast simulation.">
+  <link rel="icon" href="{{ pathto('_static/cheese.ico', 1) }}">
+  <link rel="stylesheet" href="{{ pathto('_static/scene-home.css', 1) }}">
+  <script src="{{ pathto('_static/scene-home.js', 1) }}" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    {% include "site-nav.html" %}
+  </header>
+  <main class="home-layout">
+    <section class="intro" aria-labelledby="project-title">
+      <h1 id="project-title">RatatouGym</h1>
+      <p>A simulation environment for neuroscience and embodied AI that directly models sensory encodings for ultra-fast simulation.</p>
+    </section>
+    <section class="collection" aria-label="All environments">
+      <p id="status" role="status">Loading</p>
+      <div id="gallery" class="scene-grid" role="list" aria-label="36 rendered environments"></div>
+    </section>
+  </main>
+  <noscript><p>JavaScript is required to load the environments.</p></noscript>
+</body>
+</html>

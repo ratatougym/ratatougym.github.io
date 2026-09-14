@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="docs-article">
+  {% block body_before %}{% endblock %}
+  {% include "breadcrumbs.html" %}
+  <div id="content" role="main">{{ body }}</div>
+  {% block body_after %}{% endblock %}
+</div>
+{% block on_page_toc %}
+{% if display_toc %}<aside id="right-sidebar" aria-label="On this page"><p>On this page</p>{{ toc }}</aside>{% endif %}
+{% endblock %}
+{% endblock %}

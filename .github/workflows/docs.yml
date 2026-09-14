@@ -2,82 +2,71 @@ name: Build and Deploy Documentation
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main]
   pull_request:
-    branches: [ main, master ]
+    branches: [main]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [source-updated]
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  docs:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Clone rtgym source code
-      run: |
-        # Clone the latest from default branch
-        git clone https://github.com/ratatougym/ratatougym.git rtgym
+      - name: Check out current simulator main
+        uses: actions/checkout@v4
+        with:
+          repository: ratatougym/ratatougym
+          ref: main
+          path: .source/rtgym
 
-        # Alternative options (uncomment as needed):
-        # Clone specific branch:
-        # git clone https://github.com/ratatougym/ratatougym.git rtgym -b main
-        # git clone https://github.com/ratatougym/ratatougym.git rtgym -b development
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-docs.txt
 
-        # Clone specific tag/release:
-        # git clone https://github.com/ratatougym/ratatougym.git rtgym --depth 1 --branch v1.0.0
-        # git clone https://github.com/ratatougym/ratatougym.git rtgym --depth 1 --branch v2.1.0
+      - name: Install documentation tools
+        run: python -m pip install -r requirements-docs.txt
 
-        # Clone with shallow history (faster for large repos):
-        # git clone https://github.com/ratatougym/ratatougym.git rtgym --depth 1
+      - name: Test docstring compilation
+        run: python -m unittest discover -s tests -p 'test_docstring_build.py'
 
-        # Clone with submodules if rtgym has dependencies:
-        # git clone https://github.com/ratatougym/ratatougym.git rtgym --recursive
+      - name: Regenerate API directives from current source
+        run: sphinx-apidoc --force --no-toc -o . .source/rtgym/rtgym
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
+      - name: Build documentation and homepage
+        env:
+          RTGYM_SOURCE: ${{ github.workspace }}/.source/rtgym
+        run: |
+          sphinx-build -b html -E -d _build/doctrees . _build/html
+          python scripts/verify_site.py _build/html --source .source/rtgym
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install sphinx sphinx-rtd-theme
-        # Install any other dependencies needed for your docs
-        pip install numpy matplotlib torch scipy scikit-learn faiss-cpu IPython
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _build/html
 
-    - name: Debug - Check rtgym structure
-      run: |
-        echo "=== Current directory ==="
-        pwd
-        ls -la
-        echo "=== rtgym directory ==="
-        ls -la rtgym/
-        echo "=== rtgym/rtgym directory ==="
-        ls -la rtgym/rtgym/ || echo "rtgym/rtgym/ not found"
-        echo "=== Python path test ==="
-        python -c "import sys; sys.path.insert(0, 'rtgym'); print('Path:', sys.path[:3])"
-        python -c "import sys; sys.path.insert(0, 'rtgym'); import rtgym; print('rtgym imported successfully')" || echo "Failed to import rtgym"
-
-    - name: Build documentation
-      run: |
-        sphinx-build -b html -E . docs
-
-    - name: Setup Pages
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      uses: actions/configure-pages@v4
-
-    - name: Upload artifact
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./docs
-
-    - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      id: deployment
-      uses: actions/deploy-pages@v4
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

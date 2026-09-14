@@ -17,45 +17,45 @@ rtgym.utils.common module
 
 .. automodule:: rtgym.utils.common
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:
 
 rtgym.utils.data\_processing module
 -----------------------------------
 
 .. automodule:: rtgym.utils.data_processing
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:
 
 rtgym.utils.decode\_response module
 -----------------------------------
 
 .. automodule:: rtgym.utils.decode_response
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:
 
 rtgym.utils.masking module
 --------------------------
 
 .. automodule:: rtgym.utils.masking
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:
 
 rtgym.utils.verbose module
 --------------------------
 
 .. automodule:: rtgym.utils.verbose
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: rtgym.utils
    :members:
-   :show-inheritance:
    :undoc-members:
+   :show-inheritance:

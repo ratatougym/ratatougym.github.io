@@ -1,0 +1,7 @@
+{% extends "!domainindex.html" %}
+{% block body %}
+<div class="docs-article">
+  {% include "breadcrumbs.html" %}
+  <div id="content" role="main">{{ super() }}</div>
+</div>
+{% endblock %}
