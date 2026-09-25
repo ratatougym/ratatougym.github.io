@@ -33,6 +33,9 @@ extensions = [
     'sphinx.ext.mathjax',
 ]
 
+# Keep attribute descriptions in class summaries; autodoc owns member anchors.
+napoleon_use_ivar = True
+
 # Mock imports for modules that are not available during documentation generation
 autodoc_mock_imports = [
     'numpy', 'numpy.random', 'matplotlib', 'torch', 'matplotlib.pyplot', 'scipy', 

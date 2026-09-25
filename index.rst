@@ -6,3 +6,4 @@ RatatouGym
    :maxdepth: 3
 
    overview
+   modules

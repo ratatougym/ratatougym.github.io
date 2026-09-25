@@ -14,7 +14,7 @@ Imagine how easily biological systems can navigate through different environment
 Understanding how the brain represents space is not only a key question in neuroscience, it also inspires how we design artificial systems for mapping and planning. The discovery of specialized navigation cells, such as place cells and grid cells, gave us a glimpse of how the brain might build internal maps(`O'Keefe & Dostrovsky, 1971 <https://doi.org/10.1016/0006-8993(71)90358-1>`_, `Hafting et al., 2005 <https://doi.org/10.1038/nature03721>`_). Running real experiments, however, takes time, requires data from many animals, and often comes with noise that makes analysis difficult. One way around this is to use simulations: by training artificial neural networks in virtual environments, we can test different assumptions and see whether similar patterns to those found in biological systems emerge (`Sorscher et al., 2020 <https://www.biorxiv.org/content/10.1101/2020.12.29.424583v1.full>`_, `Cueva & Wei, 2018 <https://arxiv.org/abs/1803.07770>`_, `Banino et al., 2018 <https://www.nature.com/articles/s41586-018-0102-6>`_).
 
 Why RatatouGym?
--------------
+---------------
 
 RatatouGym is a gymnasium environment built in this spirit. The idea is to view both brains and artificial neural networks as dynamical systems embedded within the world, where solving tasks naturally drives the formation of efficient and stable internal maps. Behaviors and representations are task driven, and the goal is to uncover the principles or task structures that shape them.
 

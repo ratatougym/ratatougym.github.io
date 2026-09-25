@@ -158,7 +158,7 @@ Now that you have RatatouGym running, explore these topics:
 3. **Sensory Systems**: Dive deep into the neural response models
 4. **Advanced Examples**: Check out complex scenarios and research applications
 
-For detailed information on each component, see the :doc:`examples` section and the full API documentation.
+For detailed information on each component, see the :doc:`rtgym.agent` and :doc:`rtgym.arena` API documentation.
 
 Troubleshooting
 ---------------
@@ -191,7 +191,7 @@ Common Issues
 Getting Help
 ~~~~~~~~~~~~
 
-- Check the :doc:`examples` for more detailed usage patterns
+- Check :doc:`rtgym.agent` for detailed agent usage
 - Review the API documentation for specific function details
 - Open an issue on GitHub for bugs or feature requests
 - Join our community discussions for research questions
