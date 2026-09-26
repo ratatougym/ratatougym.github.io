@@ -1,12 +1,26 @@
 "use strict";
 
+// Reserve the fixed navbar's actual height, including wrapped mobile links.
+const homeHeader = document.querySelector('body > .site-header');
+function updateHeaderSpace() {
+  const height = homeHeader.getBoundingClientRect().height;
+  document.documentElement.style.setProperty('--home-header-height', `${height}px`);
+}
+updateHeaderSpace();
+new ResizeObserver(updateHeaderSpace).observe(homeHeader);
+
 const assets = new URL("scene-clips/", document.currentScript.src);
 const grid = document.querySelector("#gallery");
 const status = document.querySelector("#status");
+const loadingLabel = document.querySelector("#room-loading-label");
+const loadingProgress = document.querySelector("#room-loading-progress");
+const defaultRoomIndex = 2 * 6 + 0;
 const videos = [];
 const objectURLs = [];
 let ready = false;
+let presented = false;
 let running = false;
+let galleryVisible = true;
 let clockStart = 0;
 let phase = 0;
 let animationFrame = 0;
@@ -23,10 +37,17 @@ const hdDownloads = new Map();
 const hdLifetime = new AbortController();
 const retiringHD = new Map();
 
+function roomAssetURL(room, key) {
+  const url = new URL(room[key], assets);
+  // The HD checksum also versions its derived thumbnail and poster.
+  if (room.hd_sha256) url.searchParams.set("v", room.hd_sha256);
+  return url;
+}
+
 function downloadHD(room, priority = "low") {
   if (hdCache.has(room.id)) return Promise.resolve(hdCache.get(room.id));
   if (hdDownloads.has(room.id)) return hdDownloads.get(room.id);
-  const download = fetch(new URL(room.hd_video, assets), { signal: hdLifetime.signal, priority })
+  const download = fetch(roomAssetURL(room, "hd_video"), { signal: hdLifetime.signal, priority })
     .then(response => {
       if (!response.ok) throw Error("HD video unavailable");
       return response.blob();
@@ -160,12 +181,14 @@ async function openHD(index, generation) {
     if (generation !== hoverGeneration) return;
     scene.classList.add("hd-ready", "expanded-scene");
     fitScenes();
+    return true;
   } catch (error) {
     if (generation !== hoverGeneration) return;
     closeHD();
     grid.children[index].classList.add("expanded-scene");
     fitScenes();
     if (error.name !== "AbortError") console.warn(error.message);
+    return false;
   }
 }
 
@@ -219,7 +242,7 @@ function pauseGroup() {
 }
 
 async function playGroup() {
-  if (!ready || running || document.hidden) return;
+  if (!ready || running || document.hidden || !galleryVisible) return;
   const generation = ++playbackGeneration;
   for (const video of videos) {
     video.currentTime = phase;
@@ -230,17 +253,31 @@ async function playGroup() {
   synchronize();
   try {
     await Promise.all(videos.map(video => video.play()));
+    if (!running || generation !== playbackGeneration) return;
+
+    // Reveal the gallery only after the default room has a decoded HD frame.
+    if (!presented) {
+      hovered = defaultRoomIndex;
+      const highDefinition = await openHD(hovered, hoverGeneration);
+      if (!running || generation !== playbackGeneration) return;
+      if (!highDefinition) throw Error("Default room HD playback unavailable");
+      presented = true;
+      grid.setAttribute("aria-busy", "false");
+      status.hidden = true;
+      preloadHD();
+    } else if (hovered < 0) setHovered(defaultRoomIndex);
   } catch (error) {
     if (!running || generation !== playbackGeneration) return;
     pauseGroup();
     status.hidden = false;
-    status.textContent = "Playback unavailable";
+    status.dataset.state = "error";
+    loadingLabel.textContent = "Playback unavailable";
     console.error(error);
   }
 }
 
 async function loadVideo(video, room) {
-  const response = await fetch(new URL(room.video, assets));
+  const response = await fetch(roomAssetURL(room, "video"));
   if (!response.ok) throw Error(`Missing video: ${room.id}`);
   // Fetching the whole Blob is a download barrier, unlike canplaythrough/preload.
   const blob = await response.blob();
@@ -283,10 +320,14 @@ function fitScenes() {
 
 async function loadScenes() {
   try {
-    const response = await fetch(new URL("index.json", assets));
+    const response = await fetch(new URL("index.json", assets), { cache: "no-cache" });
     if (!response.ok) throw Error("Collection unavailable");
     ({ rooms } = await response.json());
     if (rooms.length !== 36) throw Error("Incomplete collection");
+
+    // Download the default enlarged room before competing thumbnail downloads.
+    if (!rooms[defaultRoomIndex].hd_video) throw Error("Default room HD unavailable");
+    await downloadHD(rooms[defaultRoomIndex], "high");
     for (const room of rooms) {
       if (!room.video || !room.poster) throw Error(`Missing scene: ${room.id}`);
       const scene = document.createElement("figure");
@@ -295,34 +336,44 @@ async function loadScenes() {
       scene.setAttribute("role", "listitem");
       const video = makeVideo(256, 160, room.title);
       video.className = "scene-video";
-      video.poster = new URL(room.poster, assets).href;
+      video.poster = roomAssetURL(room, "poster").href;
       scene.append(video);
       grid.append(scene);
       videos.push(video);
     }
     fitScenes();
-    await Promise.all(videos.map((video, index) => loadVideo(video, rooms[index])));
+    // Count clips only after download and decoding have both completed.
+    let loaded = 0;
+    await Promise.all(videos.map(async (video, index) => {
+      await loadVideo(video, rooms[index]);
+      loadingProgress.value = ++loaded;
+    }));
     ready = true;
-    status.hidden = true;
     await playGroup();
-    preloadHD();
-    if (hovered >= 0) {
-      clearTimeout(hoverTimer);
-      openHD(hovered, hoverGeneration);
-    }
   } catch (error) {
-    status.textContent = "Collection unavailable";
+    status.dataset.state = "error";
+    grid.setAttribute("aria-busy", "false");
+    loadingLabel.textContent = "Collection unavailable";
     console.error(error);
   }
 }
 
 new ResizeObserver(fitScenes).observe(grid);
+// Pause the gallery while readers explore the demos farther down the page.
+new IntersectionObserver(entries => {
+  galleryVisible = entries[0].isIntersecting;
+  if (galleryVisible) playGroup();
+  else { setHovered(-1); pauseGroup(); }
+}).observe(grid);
 grid.addEventListener("pointermove", event => {
-  if (event.pointerType !== "mouse") return;
+  if (!presented || event.pointerType !== "mouse") return;
   const scene = event.target.closest(".scene");
-  setHovered(scene ? Number(scene.dataset.index) : -1);
+  // Crossing a gutter keeps the current room and its HD decoder active.
+  if (scene) setHovered(Number(scene.dataset.index));
 });
-grid.addEventListener("pointerleave", () => setHovered(-1));
+grid.addEventListener("pointerleave", () => {
+  if (presented) setHovered(ready && running ? defaultRoomIndex : -1);
+});
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) { setHovered(-1); pauseGroup(); }
   else playGroup();

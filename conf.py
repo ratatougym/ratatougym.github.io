@@ -118,7 +118,42 @@ add_module_names = False
 
 def scene_homepage(app, pagename, templatename, context, doctree):
     if pagename == 'index':
+        # Version the styles and dependent module together with the homepage script.
+        import hashlib
+        from pathlib import Path
+        assets = {}
+        names = ('scene-home.css', 'scene-home.js', 'scene-demos.js',
+                 'sensory-fields.js', 'sensory-demo.js', 'encoding-example.js',
+                 'mesh-encoding.js')
+        for name in names:
+            source = Path(app.confdir) / '_static' / name
+            content = source.read_bytes()
+            if name in ('sensory-demo.js', 'encoding-example.js'):
+                dependency = assets['sensory-fields.js'].encode()
+                content = content.replace(b'./sensory-fields.js', b'./' + dependency)
+
+            # Content-specific filenames prevent old assets matching new markup.
+            digest = hashlib.sha256(content).hexdigest()[:16]
+            filename = f'{source.stem}.{digest}{source.suffix}'
+            target = Path(app.outdir) / '_static' / filename
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(content)
+            assets[name] = filename
+
+        context['scene_home_stylesheet'] = '_static/' + assets['scene-home.css']
+        context['scene_home_script'] = '_static/' + assets['scene-home.js']
+        context['scene_demos_script'] = '_static/' + assets['scene-demos.js']
+        context['sensory_demo_script'] = '_static/' + assets['sensory-demo.js']
+        context['encoding_example_script'] = '_static/' + assets['encoding-example.js']
+        context['mesh_encoding_script'] = '_static/' + assets['mesh-encoding.js']
         return 'scene-home.html'
+
+
+def refresh_homepage(app, env, added, changed, removed):
+    # Static-script edits must also refresh the module URL during live rebuilds.
+    if app.builder.format == 'html' and 'index' in env.found_docs:
+        return ['index']
+    return []
 
 
 def require_scene_bundle(app):
@@ -148,4 +183,5 @@ def require_scene_bundle(app):
 
 def setup(app):
     app.connect('builder-inited', require_scene_bundle)
+    app.connect('env-get-outdated', refresh_homepage)
     app.connect('html-page-context', scene_homepage)

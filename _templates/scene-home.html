@@ -7,23 +7,332 @@
   <title>RatatouGym</title>
   <meta name="description" content="A simulation environment for neuroscience and embodied AI that directly models sensory encodings for ultra-fast simulation.">
   <link rel="icon" href="{{ pathto('_static/cheese.ico', 1) }}">
-  <link rel="stylesheet" href="{{ pathto('_static/scene-home.css', 1) }}">
-  <script src="{{ pathto('_static/scene-home.js', 1) }}" defer></script>
+  <link rel="stylesheet" href="{{ pathto(scene_home_stylesheet, 1) }}">
+  <script src="{{ pathto(scene_home_script, 1) }}" defer></script>
+  <script src="{{ pathto(scene_demos_script, 1) }}" defer></script>
+  <script type="module" src="{{ pathto(sensory_demo_script, 1) }}"></script>
+  <script type="module" src="{{ pathto(encoding_example_script, 1) }}"></script>
+  <script type="module" src="{{ pathto(mesh_encoding_script, 1) }}"></script>
 </head>
 <body>
   <header class="site-header">
     {% include "site-nav.html" %}
   </header>
-  <main class="home-layout">
-    <section class="intro" aria-labelledby="project-title">
-      <h1 id="project-title">RatatouGym</h1>
-      <p>A simulation environment for neuroscience and embodied AI that directly models sensory encodings for ultra-fast simulation.</p>
+  <main>
+    <section class="home-layout" aria-labelledby="project-title">
+      <div class="intro">
+        <h1 id="project-title">RatatouGym</h1>
+        <p>A simulation environment for neuroscience and embodied AI that directly models sensory encodings for ultra-fast simulation.</p>
+        <div class="hero-actions">
+          <a class="hero-button" href="#sensory-simulation">Demo</a>
+          <a class="hero-button hero-button-secondary" href="{{ pathto('overview') }}">Read the docs</a>
+        </div>
+      </div>
+      <div class="collection" aria-label="All environments">
+        <div id="status">
+          <div class="room-loading">
+            <p id="room-loading-label" role="status">Loading rooms</p>
+            <progress id="room-loading-progress" max="36" value="0" aria-label="Rooms loaded"></progress>
+          </div>
+        </div>
+        <div id="gallery" class="scene-grid" role="list" aria-busy="true" aria-label="36 rendered environments"></div>
+      </div>
     </section>
-    <section class="collection" aria-label="All environments">
-      <p id="status" role="status">Loading</p>
-      <div id="gallery" class="scene-grid" role="list" aria-label="36 rendered environments"></div>
+
+    <section class="home-section explanation-section" id="sensory-simulation" aria-labelledby="idealized-title">
+      <div class="section-heading">
+        <h2 id="idealized-title">Idealized navigation simulation</h2>
+      </div>
+      <div class="simulation-subsection trajectory-layout" id="trajectory-simulation">
+        <div class="trajectory-examples">
+          {% for name, title in [('connected', '2D trajectory'), ('house-3d', '3D flight')] %}
+          {% set clip_version = 'interior-translucent-walls-8' if name == 'house-3d' else 'gray-shading-light-blue-6' %}
+          <figure>
+            <video class="navigation-video" data-src="{{ pathto('_static/demos/navigation/' + name + '.mp4', 1) }}?v={{ clip_version }}" poster="{{ pathto('_static/demos/navigation/' + name + '.png', 1) }}?v={{ clip_version }}" width="960" height="720" muted loop playsinline preload="none" aria-label="{{ title }} with an animated {{ 'three-dimensional flight path' if name == 'house-3d' else 'planar navigation trajectory' }}"></video>
+            <figcaption><h3>{{ title }}</h3></figcaption>
+          </figure>
+          {% endfor %}
+        </div>
+        <div class="section-heading trajectory-copy">
+          <h3>Trajectory simulation</h3>
+          <p>Simulate navigation trajectories in idealized environments to build neuroscience models and test navigation algorithms. <a class="paper-citation" href="#ref-5" role="doc-biblioref" aria-label="Reference 5: REMI">[5]</a> <a class="paper-citation" href="#ref-6" role="doc-biblioref" aria-label="Reference 6: A Simple Model of Co-Emergence of Grid and Place Fields">[6]</a></p>
+        </div>
+      </div>
+
+      <div class="simulation-subsection encoding-layout" id="sensory-encoding">
+        <div class="section-heading">
+          <h3>Directly simulating sensory responses</h3>
+          <p>Sample response fields at each position and heading to directly simulate encodings of vision, position, heading, and boundaries. <a class="paper-citation" href="#ref-4" role="doc-biblioref" aria-label="Reference 4: Time Makes Space">[4]</a> This supports fast, highly parallel simulation of sensory responses without rendering images.</p>
+        </div>
+        <div class="encoding-explanation" data-fields="{{ pathto('_static/demos/response-fields.json', 1) }}" data-recording="{{ pathto('_static/demos/neural-replay.json', 1) }}">
+          <figure class="field-picker">
+            <div class="explanation-canvas field-picker-stage">
+              <div class="field-options" role="group" aria-label="Response field examples"></div>
+            </div>
+            <figcaption><h3>Response fields</h3></figcaption>
+          </figure>
+          <figure>
+            <div class="explanation-canvas field-canvas" role="img" aria-label="Population response fields sampled at the moving animal's location"></div>
+            <figcaption><h3>Population response</h3></figcaption>
+          </figure>
+          <figure>
+            <div class="explanation-canvas encoding-explanation-sequence" role="img" aria-label="Encoding history sampled from the example response fields"></div>
+            <figcaption><h3>Encoding sequence</h3></figcaption>
+          </figure>
+        </div>
+        <p class="explanation-status" role="status"></p>
+      </div>
+
+      <div class="simulation-subsection" id="neural-demo">
+        <div class="neural-demo" data-projections="{{ pathto('_static/demos/sensors/', 1) }}" data-room="{{ pathto('_static/demos/room/room.json', 1) }}" data-recording="{{ pathto('_static/demos/neural-replay.json', 1) }}" data-fields="{{ pathto('_static/demos/response-fields.json', 1) }}">
+          <fieldset class="sensor-options" disabled>
+            <legend class="sr-only">Sensors</legend>
+            <label title="Synthetic visual responses that depend on position">
+              <input id="vision-panoramic" type="checkbox" data-sensor value="8" checked>
+              <canvas class="sensor-preview" aria-hidden="true"></canvas>
+              <span class="sensor-copy"><strong>Vision-like</strong><small>(omnidirectional)</small></span>
+            </label>
+            <label title="Synthetic visual responses that depend on position and heading">
+              <input id="vision-directional" type="checkbox" data-sensor value="64">
+              <canvas class="sensor-preview" aria-hidden="true"></canvas>
+              <span class="sensor-copy"><strong>Vision-like</strong><small>(directionally tuned)</small></span>
+            </label>
+            <label title="Responses localized to particular places">
+              <input type="checkbox" data-sensor value="1">
+              <canvas class="sensor-preview" aria-hidden="true"></canvas>
+              <span class="sensor-copy"><strong>Position</strong><small>(place cells)</small></span>
+            </label>
+            <label title="Repeating spatial patterns that support estimating position and displacement">
+              <input type="checkbox" data-sensor value="2">
+              <canvas class="sensor-preview" aria-hidden="true"></canvas>
+              <span class="sensor-copy"><strong>Spatial metric</strong><small>(grid cells)</small></span>
+            </label>
+            <label title="Responses tuned to orientation">
+              <input type="checkbox" data-sensor value="16">
+              <canvas class="sensor-preview" aria-hidden="true"></canvas>
+              <span class="sensor-copy"><strong>Heading</strong><small>(head-direction cells)</small></span>
+            </label>
+            <label title="Each response is selective for one wall">
+              <input type="checkbox" data-sensor value="32">
+              <canvas class="sensor-preview" aria-hidden="true"></canvas>
+              <span class="sensor-copy"><strong>Boundaries</strong><small>(boundary cells)</small></span>
+            </label>
+          </fieldset>
+          <div class="sensory-views">
+            <figure class="sensory-view">
+              <div id="room-plot" class="sensory-canvas" role="img" aria-label="Oblique view of a room with the moving animal, its trajectory and baked room lighting"></div>
+              <figcaption><h3>Room</h3></figcaption>
+            </figure>
+            <figure class="sensory-view response-stage">
+              <div id="field-plot" class="sensory-canvas" role="img" aria-label="Six example response fields, sampled at the animal's location by a vertical line"></div>
+              <figcaption><h3>Response fields</h3></figcaption>
+            </figure>
+            <figure class="sensory-view encoding-stage">
+              <div id="encoding-sequence" class="sensory-canvas" role="img" aria-label="Recent encoding vectors, with example dimensions in rows and the newest vector at right"></div>
+              <figcaption><h3>Encoding sequence</h3></figcaption>
+            </figure>
+            <figure class="sensory-view">
+              <div id="sensory-plot" class="sensory-canvas" role="img" aria-label="Drag to rotate the three-dimensional sensor response space, with the synchronized animal trajectory"></div>
+              <figcaption><h3>Sensor response space</h3></figcaption>
+              <p id="projection-caption" role="status"></p>
+            </figure>
+          </div>
+          <p class="sensory-status" id="demo-status" role="status">Loading the demo…</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section room-section" id="room-demo" aria-labelledby="room-title">
+      <div class="section-heading realistic-heading">
+        <h2 id="room-title">Visually realistic navigation simulation</h2>
+      </div>
+      <div class="realistic-gallery">
+        {% for name, title in [('cinema-den', 'Cinema den'), ('timber-bedroom', 'Timber bedroom'), ('billiards-room', 'Billiards room')] %}
+        <figure class="realistic-pair" aria-label="{{ title }}: camera view above, trajectory below">
+          <button class="realistic-videos" type="button" aria-label="Enlarge {{ title }} camera and trajectory" aria-haspopup="dialog">
+            <video class="realistic-camera" data-src="{{ pathto('_static/demos/realistic/' + name + '-camera.mp4', 1) }}" poster="{{ pathto('_static/demos/realistic/' + name + '-camera.webp', 1) }}" width="960" height="540" muted loop playsinline preload="none" aria-label="{{ title }} camera view"></video>
+            <video class="realistic-trajectory" data-src="{{ pathto('_static/demos/realistic/' + name + '-trajectory.mp4', 1) }}?v=clean-edge-2" poster="{{ pathto('_static/demos/realistic/' + name + '-trajectory.webp', 1) }}?v=clean-edge-2" width="800" height="500" muted loop playsinline preload="none" aria-label="{{ title }} synchronized trajectory"></video>
+          </button>
+          <figcaption><h3>{{ title }}</h3></figcaption>
+        </figure>
+        {% endfor %}
+      </div>
+
+      <div class="vision-pipeline" id="vision-pipeline" tabindex="0" role="region" aria-labelledby="vision-pipeline-title">
+        <h3 id="vision-pipeline-title">Rendering and encoding visual observations</h3>
+        <div class="pipeline-diagram">
+          <svg class="pipeline-connections" aria-hidden="true">
+            <defs><marker id="pipeline-arrowhead" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L7 4 L1 7" /></marker></defs>
+            <g class="pipeline-paths"></g>
+          </svg>
+          <figure class="pipeline-stage">
+            <div class="pipeline-stage-content">
+              <img class="pipeline-room-image" data-pipeline-node="simulation" src="{{ pathto('_static/demos/realistic/timber-bedroom-simulation-still.webp', 1) }}" width="800" height="500" loading="lazy" alt="Room geometry, camera pose, and navigation trajectory">
+            </div>
+            <figcaption>Simulation</figcaption>
+          </figure>
+          <figure class="pipeline-stage">
+            <div class="pipeline-stage-content">
+              <div class="camera-image-stack" data-pipeline-node="camera">
+                <img src="{{ pathto('_static/demos/realistic/timber-bedroom-camera-still.webp', 1) }}" width="960" height="540" loading="lazy" alt="The front camera image in a sequence of captured views">
+                <span class="pipeline-math image-symbol" aria-label="Image at time t">I<sub>t</sub></span>
+              </div>
+            </div>
+            <figcaption>Camera images</figcaption>
+          </figure>
+          <figure class="pipeline-stage">
+            <div class="pipeline-stage-content encoder-diagram">
+              <svg class="encoder-trapezoid" data-pipeline-node="encoder" viewBox="0 0 100 200" preserveAspectRatio="none" role="img" aria-label="Vision encoder">
+                <path class="encoder-body" d="M2 25 L98 55 L98 145 L2 175 Z" />
+              </svg>
+              <span class="pipeline-math encoder-function" aria-label="Encoder E theta">E<sub>θ</sub></span>
+              <div class="encoder-annotation">
+                <svg viewBox="0 0 12 24" aria-hidden="true"><path d="M6 23 V2 M2 6 L6 2 L10 6" /></svg>
+                <span>DINO / MAE / SAM3D</span>
+              </div>
+            </div>
+            <figcaption>Vision encoder</figcaption>
+          </figure>
+          <figure class="pipeline-stage">
+            <div class="pipeline-stage-content" role="img" aria-label="Encoding represented by three compact feature tokens">
+              <div class="encoding-vector-stack" data-pipeline-node="encoding" aria-hidden="true">
+                {% for levels in [[0.35, 0.65, 0.45, 0.75, 0.3, 0.55], [0.6, 0.3, 0.7, 0.4, 0.55, 0.35], [0.45, 0.7, 0.3, 0.6, 0.4, 0.65]] %}
+                <div class="encoding-vector">{% for level in levels %}<i style="--level: {{ level }}"></i>{% endfor %}</div>
+                {% endfor %}
+                <span class="pipeline-math image-symbol"><b>z</b><sub>t</sub></span>
+              </div>
+            </div>
+            <figcaption>Encoding</figcaption>
+          </figure>
+          <figure class="pipeline-stage">
+            <div class="pipeline-stage-content downstream-models">
+              <div class="downstream-model model-world" data-pipeline-node="world">
+                <svg class="model-icon" viewBox="0 0 48 48" aria-hidden="true">
+                  <rect x="3" y="13" width="13" height="22" rx="2" />
+                  <rect x="32" y="13" width="13" height="22" rx="2" />
+                  <path d="M20 24 H28 M25 21 L28 24 L25 27" />
+                </svg>
+                <div><span>World model</span><small>Transformer</small></div>
+              </div>
+              <div class="downstream-model model-policy" data-pipeline-node="policy">
+                <svg class="model-icon" viewBox="0 0 48 48" aria-hidden="true">
+                  <path class="policy-symbol" d="M12 16 Q14 13 19 14 H36 M20 14 L17 35 M31 14 V31 Q31 37 36 34" />
+                </svg>
+                <div><span>Policy</span><small>External model</small></div>
+              </div>
+              <div class="downstream-model model-neural" data-pipeline-node="neural">
+                <svg class="model-icon" viewBox="0 0 48 48" aria-hidden="true">
+                  <path d="M28 12 Q39 16 39 27 M36 24 L39 27 L42 24 M33 36 Q24 42 15 36 M18 35 L15 36 L16 39 M9 27 Q9 16 20 12 M16 11 L20 12 L18 16" />
+                  <circle cx="24" cy="9" r="4" />
+                  <circle cx="10" cy="33" r="4" />
+                  <circle cx="38" cy="33" r="4" />
+                </svg>
+                <div><span>Biological model</span><small>Recurrent network</small></div>
+              </div>
+            </div>
+            <figcaption>Downstream models</figcaption>
+          </figure>
+          <figure class="pipeline-stage">
+            <div class="pipeline-stage-content reconstruction-diagram">
+              <div class="decoder-node" data-pipeline-node="decoder">
+                <svg viewBox="0 0 90 80" aria-hidden="true"><path d="M2 24 L88 2 L88 78 L2 56 Z" /></svg>
+                <span>Decoder</span>
+              </div>
+              <span class="reconstruction-arrow" aria-hidden="true">↓</span>
+              <div class="reconstruction-image">
+                <img src="{{ pathto('_static/demos/realistic/timber-bedroom-camera-still.webp', 1) }}" width="960" height="540" loading="lazy" alt="Slightly blurred camera image illustrating reconstruction, not a model output">
+              </div>
+              <span class="pipeline-math" aria-label="Reconstructed image at time t">Î<sub>t</sub></span>
+            </div>
+            <figcaption>Reconstruction</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="mesh-encoding-demo" id="mesh-encoding" aria-labelledby="mesh-encoding-title">
+        <div class="mesh-encoding-heading">
+          <h3 id="mesh-encoding-title">Scaling visual simulation for world models</h3>
+          <p>World models need visual experience at scale. We target highly parallel simulation by predicting visual encodings directly from room geometry and learned features <a class="paper-citation" href="#ref-1" role="doc-biblioref" aria-label="Reference 1: Deferred Neural Rendering">[1]</a> <a class="paper-citation" href="#ref-2" role="doc-biblioref" aria-label="Reference 2: EG3D">[2]</a> <a class="paper-citation" href="#ref-3" role="doc-biblioref" aria-label="Reference 3: Modular Primitives for High-Performance Differentiable Rendering">[3]</a>. This skips per-step RGB rendering and vision-encoder inference, reducing the work needed to generate each training observation.</p>
+        </div>
+        <div class="mesh-flow-scroll" tabindex="0" role="region" aria-label="Animated mesh encoding method">
+          <div class="mesh-flow">
+            <figure>
+              <div class="mesh-view mesh-room-view" role="img" aria-label="A moving camera and its visible surface point in a simplified room mesh"></div>
+              <figcaption>Mesh visibility</figcaption>
+              <p>Camera pose <span class="pipeline-math">p<sub>t</sub></span></p>
+            </figure>
+            <figure>
+              <div class="mesh-view mesh-surface-view" role="img" aria-label="World coordinates of the surfaces visible to the moving camera">
+                <canvas class="mesh-surface-map"></canvas>
+                <span class="mesh-coordinate-key"><i></i> Surface coordinates · XYZ</span>
+              </div>
+              <figcaption>Visible surfaces</figcaption>
+              <p><span class="pipeline-math">x, y, z</span> + hit mask</p>
+            </figure>
+            <figure>
+              <div class="mesh-view mesh-planes-view" role="img" aria-label="The same surface point queried on three perpendicular learned feature planes"></div>
+              <figcaption>Spatial features</figcaption>
+              <p>XY / XZ / YZ · multiscale</p>
+            </figure>
+            <figure>
+              <div class="mesh-view mesh-output-view" role="img" aria-label="Surface features passed through a CNN and Transformer to predict encoding tokens">
+                <div class="mesh-readout">CNN + Transformer</div>
+                <span class="mesh-readout-arrow" aria-hidden="true">↓</span>
+                <canvas class="mesh-latent-tokens"></canvas>
+                <span class="pipeline-math mesh-latent-symbol"><b>ẑ</b><sub>t</sub></span>
+              </div>
+              <figcaption>Predicted encoding</figcaption>
+              <p>Image latent</p>
+            </figure>
+          </div>
+        </div>
+        <p class="mesh-demo-status" role="status">Loading the illustration…</p>
+      </div>
+    </section>
+
+    <dialog class="room-lightbox" aria-labelledby="room-lightbox-title">
+      <div class="room-lightbox-heading">
+        <h3 id="room-lightbox-title"></h3>
+        <button class="room-lightbox-close" type="button" aria-label="Close enlarged room">×</button>
+      </div>
+      <div class="room-lightbox-content"></div>
+    </dialog>
+
+    <section class="home-section home-next" aria-labelledby="next-title">
+      <div><h2 id="next-title">Documentation</h2></div>
+      <div class="next-links"><a class="text-link" href="{{ pathto('overview') }}">Read the docs <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/ratatougym/ratatougym">Source code <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section class="home-section home-references" id="references" role="doc-bibliography" aria-labelledby="references-title">
+      <h2 id="references-title">References</h2>
+      <ol class="reference-list">
+        <li id="ref-1" role="doc-biblioentry">
+          <span class="reference-number">[1]</span>
+          <div><a href="https://arxiv.org/abs/1904.12356">Deferred Neural Rendering: Image Synthesis using Neural Textures</a><p>Thies et al. <span class="reference-venue">ACM TOG / SIGGRAPH 2019.</span></p></div>
+        </li>
+        <li id="ref-2" role="doc-biblioentry">
+          <span class="reference-number">[2]</span>
+          <div><a href="https://nvlabs.github.io/eg3d/">Efficient Geometry-aware 3D Generative Adversarial Networks</a><p>Chan et al. <span class="reference-venue">CVPR 2022.</span></p></div>
+        </li>
+        <li id="ref-3" role="doc-biblioentry">
+          <span class="reference-number">[3]</span>
+          <div><a href="https://arxiv.org/abs/2011.03277">Modular Primitives for High-Performance Differentiable Rendering</a><p>Laine et al. <span class="reference-venue">ACM TOG / SIGGRAPH Asia 2020.</span></p></div>
+        </li>
+        <li id="ref-4" role="doc-biblioentry">
+          <span class="reference-number">[4]</span>
+          <div><a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/42aae0e655c77d93edad9171ad9f4717-Abstract-Conference.html">Time Makes Space: Emergence of Place Fields in Networks Encoding Temporally Continuous Sensory Experiences</a><p>Wang et al. <span class="reference-venue">NeurIPS 2024.</span></p></div>
+        </li>
+        <li id="ref-5" role="doc-biblioentry">
+          <span class="reference-number">[5]</span>
+          <div><a href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/72ab0f5ba093e905be35fb27810a9c56-Abstract-Conference.html">REMI: Reconstructing Episodic Memory During Internally Driven Path Planning</a><p>Wang et al. <span class="reference-venue">NeurIPS 2025.</span></p></div>
+        </li>
+        <li id="ref-6" role="doc-biblioentry">
+          <span class="reference-number">[6]</span>
+          <div><a href="https://arxiv.org/abs/2605.21356">A Simple Model of Co-Emergence of Grid and Place Fields</a><p>Wang et al. <span class="reference-venue">NeurIPS 2026.</span></p></div>
+        </li>
+      </ol>
     </section>
   </main>
-  <noscript><p>JavaScript is required to load the environments.</p></noscript>
+  <noscript><p class="noscript-note">Enable JavaScript for the interactive demos. The documentation is available through the links above.</p></noscript>
 </body>
 </html>
